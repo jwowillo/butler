@@ -1,0 +1,19 @@
+{{ define "header" }}
+<title>Butler</title />
+<meta name="description" content="" />
+{{ end }}
+
+{{ define "body" }}
+<h1 class="question">Butler, find recipes with <input type="text" id="filter" size="6" />.</h1>
+<img src="/platter.png">
+<div id="results">
+  <ul>
+    {{ range $r := .X }}
+    <li><a href="{{ $r.Path }}">{{ $r.Name }}</a></li>
+    {{ end }}
+  </ul>
+</div>
+{{ range $s := .Pages }}
+<script src="{{ $s.Path }}" defer></script>
+{{ end }}
+{{ end }}

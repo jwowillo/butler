@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+host= # Host the server is being deployed to.
+wd=   # Working directory to run the server from on the host.
+
+while [ ! $# -eq 0 ]
+do
+  case "$1" in
+    --host | -h)
+      host=$2
+      ;;
+    --working-directory | -wd )
+      wd=$2
+      ;;
+  esac
+  shift
+done
+
+if [ -z "$host" ]
+then
+  echo 'must pass host the server is being deployed to'
+  exit 1
+fi
+if [ -z "$wd" ]
+then
+  echo 'must pass working directory to run the server from on the host'
+  exit 1
+fi
+
+
+ssh $host << EOF
+cd $wd
+git clone https://github.com/jwowillo/butler.git
+cd butler
+pgrep butler_server | xargs kill || true
+nohup ./run &
+EOF

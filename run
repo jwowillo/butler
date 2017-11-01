@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+url='http://www.recipe-butler.com'
+in='book'
+out='build'
+port=':3000'
+
+while [ ! $# -eq 0 ]
+do
+  case "$1" in
+    --url | -u)
+      url=$2
+      ;;
+    --in | -i)
+      in=$2
+      ;;
+    --out | -o)
+      out=$2
+      echo "$2"
+      ;;
+    --port | p)
+      port=$2
+      echo "$2"
+      ;;
+  esac
+  shift
+done
+
+make butler_gen butler_server
+butler_gen --url $url --in $in --out $out
+butler_server --port $port --directory $out

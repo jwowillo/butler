@@ -1,0 +1,75 @@
+body {
+  background-color: #2e456b;
+  text-align: center;
+  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  line-height: 1.25;
+}
+
+body, a {
+  color: #f1f1f1;
+}
+
+input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid white;
+  color: #f1f1f1;
+  font-size: 0.75em;
+  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.question {
+  font-size: 4em;
+}
+
+#results ul {
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px;
+  list-style-type: none;
+  width: 60%;
+  max-width: 760px;
+}
+
+img {
+  max-width: 100%;
+}
+
+#results li {
+  background-color: #f1f1f1;
+  border: 4px solid #0c0c0c;
+  margin-bottom: 20px;
+  text-align: left;
+  padding: 10px;
+}
+
+#results li a {
+  color: #0c0c0c;
+  font-size: 1.5em;
+}
+
+#box {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 760px;
+  background-color: #f1f1f1;
+  color: #0c0c0c;
+  text-align: left;
+  font-size: 1.5em;
+  padding: 10px;
+  border: 4px solid #0c0c0c;
+}
+
+h2 {
+  font-size: 1em;
+}
+
+#box a {
+  color: #0c0c0c;
+}
