@@ -30,8 +30,15 @@ fi
 
 ssh $host << EOF
 cd $wd
-git clone https://github.com/jwowillo/butler.git
+rm -rf butler
+echo 'cloning'
+git clone https://github.com/jwowillo/butler.git > /dev/null 2> /dev/null
+echo
 cd butler
-pgrep butler_server | xargs kill || true
-nohup ./run &
+echo 'killing server if running'
+pgrep butler_server | xargs kill 2> /dev/null || true
+echo
+echo 'starting server'
+echo
+nohup ./run > /dev/null 2> /dev/null < /dev/null &
 EOF
