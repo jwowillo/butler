@@ -40,6 +40,7 @@ pgrep butler_server | xargs kill 2> /dev/null || true
 echo
 echo 'building'
 echo
+go get
 make butler_gen butler_server
 echo
 echo 'starting server'
