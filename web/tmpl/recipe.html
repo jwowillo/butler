@@ -1,0 +1,47 @@
+{{ define "header" }}
+<title>{{ .Name }}</title>
+<meta name="description" content="{{ .Description }}" />
+{{ end }}
+
+{{ define "body" }}
+<h1 class="question">{{ .Name }}</h1>
+<div id="box">
+
+  <h3>{{ .Description }}</h3>
+
+  {{ if ne 0 (len .Ingredients) }}
+  <div>
+    <h2>Ingredients:</h2>
+    <ul>
+      {{ range $item := .Ingredients }}
+      <li>{{ $item }}</li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+
+  {{ if ne 0 (len .Steps) }}
+  <div>
+    <h2>Steps:</h2>
+    <ol>
+      {{ range $item := .Steps }}
+      <li>{{ $item }}</li>
+      {{ end }}
+    </ol>
+  </div>
+  {{ end }}
+
+  {{ if ne 0 (len .Notes) }}
+  <div>
+    <h2>Notes:</h2>
+    <ul>
+      {{ range $item := .Notes }}
+      <li>{{ $item }}</li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+
+  <p><a href="/">Back</a></p>
+</div>
+{{ end }}

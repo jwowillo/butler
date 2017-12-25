@@ -1,5 +1,3 @@
-// Use list.
-
 function recipeToString(recipe) {
   var out = recipe.name;
   out += recipe.description;

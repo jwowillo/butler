@@ -1,0 +1,10 @@
+name: Spinach Salad
+
+description: Simple spinach salad with a sweet vinaigrette.
+
+ingredients:
+    - Spinach
+    - Vinaigrette
+
+steps:
+    - Toss the spinach with the vinaigrette.

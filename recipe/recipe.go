@@ -3,8 +3,13 @@
 // directory from YAML files.
 package recipe
 
+// TODO: Don't reimplement these errors, use handling in OS. Make sure that the
+// right things are still returned in test though. If a subdir or nonYAML file
+// has no permission error, it should be skipped without bubbling errors to the
+// top. Document that the errors are those defined plus anything that can show
+// up during the walk.
+
 import (
-	"errors"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -12,32 +17,32 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type recipeYAML struct {
-	Name        string        `yaml:"name"`
-	Description string        `yaml:"description"`
-	Notes       []string      `yaml:"notes"`
-	Ingredients []interface{} `yaml:"ingredients"`
-	Steps       []interface{} `yaml:"steps"`
-}
-
 // Recipe ...
 type Recipe struct {
 	Path        string
 	Name        string
 	Description string
+	Ingredients []string
+	Steps       []string
 	Notes       []string
-	Ingredients NestableList
-	Steps       NestableList
 }
 
-// ListFromDir returns all Recipes stored as YAMl files in the provided
+// List returns all Recipes stored as YAML files in the provided
 // directory. An error is returned if the Recipes in the directory can't be read.
-func ListFromDir(dir string) ([]Recipe, error) {
+func List(dir string) ([]Recipe, error) {
 	var rs []Recipe
 	if err := filepath.Walk(dir, recipesWalk(&rs)); err != nil {
 		return nil, err
 	}
 	return rs, nil
+}
+
+type recipeYAML struct {
+	Name        string   `yaml:"name"`
+	Description string   `yaml:"description"`
+	Notes       []string `yaml:"notes"`
+	Ingredients []string `yaml:"ingredients"`
+	Steps       []string `yaml:"steps"`
 }
 
 // recipesWalk returns a filepath.WalkFunc that stores all found Recipes in the
@@ -46,9 +51,6 @@ func recipesWalk(rs *[]Recipe) filepath.WalkFunc {
 	return func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return err
-		}
-		if fi.IsDir() {
-			return nil
 		}
 		ext := filepath.Ext(path)
 		if ext != ".yaml" {
@@ -68,53 +70,14 @@ func recipesWalk(rs *[]Recipe) filepath.WalkFunc {
 			return err
 		}
 		path = path[0 : len(path)-len(ext)]
-		steps, err := fillList(ry.Steps)
-		if err != nil {
-			return err
-		}
-		ingredients, err := fillList(ry.Ingredients)
-		if err != nil {
-			return err
-		}
 		*rs = append(*rs, Recipe{
 			Path:        "/" + path + "/",
 			Name:        ry.Name,
 			Description: ry.Description,
 			Notes:       ry.Notes,
-			Steps:       steps,
-			Ingredients: ingredients,
+			Steps:       ry.Steps,
+			Ingredients: ry.Ingredients,
 		})
 		return nil
 	}
-}
-
-func fillList(tvs []interface{}) (NestableList, error) {
-	var nl NestableList
-	for _, tv := range tvs {
-		switch tv := tv.(type) {
-		case map[interface{}]interface{}:
-			for k, vs := range tv {
-				k, ok := k.(string)
-				if !ok {
-					return nil, errors.New("bad type")
-				}
-				vs, ok := vs.([]interface{})
-				if !ok {
-					return nil, errors.New("bad type")
-				}
-				i := NestableItem{Item: k}
-				for _, v := range vs {
-					v, ok := v.(string)
-					if !ok {
-						return nil, errors.New("bad type")
-					}
-					i.List = append(i.List, NestableItem{Item: v})
-				}
-				nl = append(nl, i)
-			}
-		case string:
-			nl = append(nl, NestableItem{Item: tv})
-		}
-	}
-	return nl, nil
 }

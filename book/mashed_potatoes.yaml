@@ -1,0 +1,14 @@
+name: Mashed Potatoes
+
+description: Mashed potatoes with butter and garlic.
+
+ingredients:
+    - Salt
+    - Pepper
+    - Butter
+    - Garlic
+
+steps:
+    - Boil salted water with pealed and chunked potatoes.
+    - Mash the potatoes with butter, minced garlic, leftover water, salt, and
+      pepper.

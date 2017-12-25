@@ -8,12 +8,11 @@
 <img src="/platter.png">
 <div id="results">
   <ul>
-    {{ range $r := .X }}
+    {{ range $r := . }}
     <li><a href="{{ $r.Path }}">{{ $r.Name }}</a></li>
     {{ end }}
   </ul>
 </div>
-{{ range $s := .Pages }}
-<script src="{{ $s.Path }}" defer></script>
-{{ end }}
+<script src="/recipes.js" defer></script>
+<script src="/search.js" defer></script>
 {{ end }}

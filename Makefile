@@ -7,13 +7,6 @@
 # all builds the site generator, the server, and docs.
 all: butler_gen butler_server doc
 
-# generate runs go generate in the source repository to build static assets and
-# templates into the go code.
-generate:
-	@echo 'generating'
-	cd source && go generate
-	@echo
-
 # butler_server builds the server which serves butler.
 butler_server:
 	@echo 'making butler_server'
@@ -21,7 +14,7 @@ butler_server:
 	@echo
 
 # butler_gen builds the generator which creates the butler static files.
-butler_gen: generate
+butler_gen:
 	@echo 'making butler_gen'
 	$(call go,butler_gen)
 	@echo

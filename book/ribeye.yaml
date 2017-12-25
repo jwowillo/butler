@@ -1,0 +1,17 @@
+name: Ribeye
+
+description: Seared ribeye.
+
+ingredients:
+    - Salt
+    - Pepper
+    - Neutral Oil
+
+steps:
+    - Rub oil all over ribeye.
+    - Sous vide the ribeye at 120 degrees for one hour.
+    - Pat the ribeye dry and liberally season with salt and pepper.
+    - Heat a cast iron pan as hot as possible.
+    - Place oil in the pan and sear the steak just until all sides have a good
+      crust.
+    - Let rest for 5 minutes.

@@ -38,6 +38,10 @@ cd butler
 echo 'killing server if running'
 pgrep butler_server | xargs kill 2> /dev/null || true
 echo
+echo 'building'
+echo
+make butler_gen butler_server
+echo
 echo 'starting server'
 echo
 nohup ./run > /dev/null 2> /dev/null < /dev/null &

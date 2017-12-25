@@ -1,24 +1,32 @@
 #!/usr/bin/env bash
 
-url='http://www.recipe-butler.com'
-in='book'
-out='build'
+web='web'
+recipes='book'
+directory='build'
+debug=false
 port=':3000'
 
 while [ ! $# -eq 0 ]
 do
   case "$1" in
-    --url | -u)
-      url=$2
+    --web)
+      web=$2
       ;;
-    --in | -i)
-      in=$2
+    --recipes)
+      recipes=$2
       ;;
-    --out | -o)
-      out=$2
+    --directory)
+      directory=$2
       echo "$2"
       ;;
-    --port | p)
+    --debug)
+      if [ -z "$2" ]; then
+        debug=true
+      else
+        debug=$2
+      fi
+      ;;
+    --port)
       port=$2
       echo "$2"
       ;;
@@ -26,6 +34,5 @@ do
   shift
 done
 
-make butler_gen butler_server
-butler_gen --url $url --in $in --out $out
-butler_server --port $port --directory $out
+butler_gen --recipes $recipes --web $web --directory $directory --debug $debug
+butler_server --port $port --directory $directory --debug $debug
