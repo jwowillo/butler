@@ -27,20 +27,19 @@ then
   exit 1
 fi
 
-
 ssh $host << EOF
 cd $wd
 rm -rf butler
 echo 'cloning'
 git clone https://github.com/jwowillo/butler.git > /dev/null 2> /dev/null
 echo
-cd butler
-echo 'killing server if running'
-pgrep butler_server | xargs kill 2> /dev/null || true
-echo
 echo 'building'
 echo
 make butler_gen butler_server
+echo
+cd butler
+echo 'killing server if running'
+pgrep butler_server | xargs kill 2> /dev/null || true
 echo
 echo 'starting server'
 echo
