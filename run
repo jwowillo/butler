@@ -17,7 +17,6 @@ do
       ;;
     --directory)
       directory=$2
-      echo "$2"
       ;;
     --debug)
       if [ -z "$2" ]; then
@@ -35,4 +34,4 @@ do
 done
 
 butler_gen --recipes $recipes --web $web --directory $directory --debug $debug
-butler_server --port $port --directory $directory --debug $debug
+butler_server --port $port --directory $directory
