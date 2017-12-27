@@ -14,7 +14,7 @@ import (
 // main binds a file server serving from a received directory, logs both the
 // recieved port and directory, then listens for requests.
 func main() {
-	log.Println("listening on %s and serving files from %s\n", port, dir)
+	log.Printf("listening on %s and serving files from %s\n", port, dir)
 	http.ListenAndServe(port, server.New(dir))
 }
 
