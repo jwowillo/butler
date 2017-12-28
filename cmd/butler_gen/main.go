@@ -1,6 +1,5 @@
-// Package main exposes a command which builds the static files which make up
-// the butler site into an dirput directory from an input directory containing
-// recipe files and a URL the site will be served from.
+// Package main has a command that generates butler static files based on
+// content in input directories.
 package main
 
 import (
@@ -12,8 +11,8 @@ import (
 	"github.com/jwowillo/gen"
 )
 
-// main builds the butler static files from input files and a URL the site will
-// be served from.
+// main builds the butler static files from input directories and gzips and
+// minifies the files if the debug flag isn't set.
 func main() {
 	rs, err := recipe.List(recipes)
 	if err != nil {
@@ -39,26 +38,30 @@ var (
 	web string
 	// recipes directory.
 	recipes string
-	// dir directory to write files to.
+	// dir to write files to.
 	dir string
 	// debug is true if written files shouldn't be gzipped or minified.
 	debug bool
 )
 
-func stringVar(s *string, f, h string) {
+// stringFlag that stores the value of the flag f in the string s with help
+// message h.
+func stringFlag(s *string, f, h string) {
 	flag.StringVar(s, f, "", h)
 }
 
-func boolVar(b *bool, f, h string) {
+//  boolFlag that stores the value of the flag f in the bool b with help message
+//  h.
+func boolFlag(b *bool, f, h string) {
 	flag.BoolVar(b, f, false, h)
 }
 
-// init parses command line aruments into received variables.
+// init parses flags into variables.
 func init() {
-	stringVar(&web, "web", "directory with web files")
-	stringVar(&recipes, "recipes", "directory with recipe files")
-	stringVar(&dir, "directory", "directory to build to")
-	boolVar(&debug, "debug", "files won't be gzipped and minified if set")
+	stringFlag(&web, "web", "directory with web files")
+	stringFlag(&recipes, "recipes", "directory with recipe files")
+	stringFlag(&dir, "directory", "directory to build to")
+	boolFlag(&debug, "debug", "files won't be gzipped and minified if set")
 	flag.Parse()
 	if web == "" {
 		log.Fatal("must pass directory with web files")

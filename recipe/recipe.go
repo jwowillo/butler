@@ -1,13 +1,6 @@
-// Package recipe provides a structure for what a Recipe is in JSON and YAML
-// formats and a utility called AllInDir for fetching all the Recipes in a
-// directory from YAML files.
+// Package recipe defines a Recipe and has a function to get all Recipes from a
+// directory.
 package recipe
-
-// TODO: Don't reimplement these errors, use handling in OS. Make sure that the
-// right things are still returned in test though. If a subdir or nonYAML file
-// has no permission error, it should be skipped without bubbling errors to the
-// top. Document that the errors are those defined plus anything that can show
-// up during the walk.
 
 import (
 	"io/ioutil"
@@ -17,18 +10,40 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Recipe ...
+// Recipe has all the data which describes a recipe.
 type Recipe struct {
-	Path        string
-	Name        string
+	// Path the Recipe will be located at.
+	Path string
+	// Name of the Recipe.
+	Name string
+	// Description sentence of the Recipe.
 	Description string
+	// Ingredients to make the Recipe.
 	Ingredients []string
-	Steps       []string
-	Notes       []string
+	// Steps to make the Recipe.
+	Steps []string
+	// Notes which will be helpful when making the Recipe.
+	Notes []string
 }
 
-// List returns all Recipes stored as YAML files in the provided
-// directory. An error is returned if the Recipes in the directory can't be read.
+// List of all Recipes stored in YAML files in the directory.
+//
+// The name of the YAML file becomes the path.
+//
+// The expected structure of each YAML file is:
+//   name: <NAME>
+//   description: <DESCRIPTION>
+//   ingredients:
+//       - <INGREDIENT>
+//       - <INGREDIENT>
+//   steps:
+//       - <STEP>
+//       - <STEP>
+//   notes:
+//       - <NOTE>
+//       - <NOTE>
+//
+// Returns an error if any if the YAML files couldn't be read into Recipes.
 func List(dir string) ([]Recipe, error) {
 	var rs []Recipe
 	if err := filepath.Walk(dir, recipesWalk(&rs)); err != nil {
@@ -37,6 +52,7 @@ func List(dir string) ([]Recipe, error) {
 	return rs, nil
 }
 
+// recipeYAML describes the structure of a Recipe's YAML file.
 type recipeYAML struct {
 	Name        string   `yaml:"name"`
 	Description string   `yaml:"description"`
@@ -45,8 +61,10 @@ type recipeYAML struct {
 	Steps       []string `yaml:"steps"`
 }
 
-// recipesWalk returns a filepath.WalkFunc that stores all found Recipes in the
-// provided list. The filepath.WalkFunc returns errors if Recipes can't be read.
+// recipesWalk returns a filepath.WalkFunc that looks for YAML files to convert
+// to Recipes and store them in the list.
+//
+// The filepath.WalFunc returns any error that occurs.
 func recipesWalk(rs *[]Recipe) filepath.WalkFunc {
 	return func(path string, fi os.FileInfo, err error) error {
 		if err != nil {

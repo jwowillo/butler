@@ -1,2 +1,2 @@
-// Package cmd contains exposed commands as subpackages.
+// Package cmd has all butler commands as subpackages.
 package cmd

@@ -1,3 +1,6 @@
+// Package server has a constructor for a http.Handler which serves static files
+// from a directory and properly sets or doesn't set the Gzip header for each
+// file.
 package server
 
 import (
@@ -7,8 +10,9 @@ import (
 	"path/filepath"
 )
 
-// New ...
-func New(dir string) http.Handler {
+// Handler that serves static files from the passed directory and properly sets
+// or doesn't set the Gzip header.
+func Handler(dir string) http.Handler {
 	h := http.FileServer(http.Dir(dir))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := filepath.Join(dir, r.URL.String())
