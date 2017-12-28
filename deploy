@@ -6,10 +6,10 @@ wd=   # Working directory to run the server from on the host.
 while [ ! $# -eq 0 ]
 do
   case "$1" in
-    --host | -h)
+    --host )
       host=$2
       ;;
-    --working-directory | -wd )
+    --working-directory )
       wd=$2
       ;;
   esac
