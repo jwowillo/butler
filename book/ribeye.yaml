@@ -3,9 +3,10 @@ name: Ribeye
 description: Seared ribeye.
 
 ingredients:
-    - Salt
-    - Pepper
-    - Neutral Oil
+    - item: Ribeye
+    - item: Salt
+    - item: Pepper
+    - item: Neutral Oil
 
 steps:
     - Rub oil all over ribeye.

@@ -3,11 +3,19 @@ name: Spinach Salad
 description: Simple spinach salad with a sweet vinaigrette.
 
 ingredients:
-    - Spinach
-    - 1/2 Cup of Olive Oil
-    - 2 Tablespoons of Balsamic Vinegar
-    - 1 Tablespoon of Dijon Mustard
-    - 2 Teaspoons of Honey
+    - item: Spinach
+    - amount: 1/2
+      unit: Cup
+      item: Olive Oil
+    - amount: 2
+      unit: Tablespoon
+      item: Balsamic Vinegar
+    - amount: 1
+      unit: Tablespoon
+      item: Dijon Mustard
+    - amount: 2
+      unit: Teaspoon
+      item: Honey
 
 steps:
     - Combine the olive oil, balsamic vinegar, dijon mustard, and honey.

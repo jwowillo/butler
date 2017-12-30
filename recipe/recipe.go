@@ -3,9 +3,13 @@
 package recipe
 
 import (
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -19,7 +23,7 @@ type Recipe struct {
 	// Description sentence of the Recipe.
 	Description string
 	// Ingredients to make the Recipe.
-	Ingredients []string
+	Ingredients []Ingredient
 	// Steps to make the Recipe.
 	Steps []string
 	// Notes which will be helpful when making the Recipe.
@@ -52,13 +56,15 @@ func List(dir string) ([]Recipe, error) {
 	return rs, nil
 }
 
+// TODO: Have ingredientYAML.
+
 // recipeYAML describes the structure of a Recipe's YAML file.
 type recipeYAML struct {
-	Name        string   `yaml:"name"`
-	Description string   `yaml:"description"`
-	Notes       []string `yaml:"notes"`
-	Ingredients []string `yaml:"ingredients"`
-	Steps       []string `yaml:"steps"`
+	Name        string           `yaml:"name"`
+	Description string           `yaml:"description"`
+	Notes       []string         `yaml:"notes"`
+	Ingredients []ingredientYAML `yaml:"ingredients"`
+	Steps       []string         `yaml:"steps"`
 }
 
 // recipesWalk returns a filepath.WalkFunc that looks for YAML files to convert
@@ -87,6 +93,14 @@ func recipesWalk(rs *[]Recipe) filepath.WalkFunc {
 		if err := yaml.Unmarshal(bs, &ry); err != nil {
 			return err
 		}
+		is := make([]Ingredient, 0, len(ry.Ingredients))
+		for _, iy := range ry.Ingredients {
+			i, err := ingredientYAMLToIngredient(iy)
+			if err != nil {
+				return err
+			}
+			is = append(is, i)
+		}
 		path = path[0 : len(path)-len(ext)]
 		*rs = append(*rs, Recipe{
 			Path:        "/" + path + "/",
@@ -94,8 +108,158 @@ func recipesWalk(rs *[]Recipe) filepath.WalkFunc {
 			Description: ry.Description,
 			Notes:       ry.Notes,
 			Steps:       ry.Steps,
-			Ingredients: ry.Ingredients,
+			Ingredients: is,
 		})
 		return nil
 	}
+}
+
+var (
+	// ErrNoUnit ...
+	ErrNoUnit = errors.New("must have unit if amount is present")
+	// ErrUndefined ...
+	ErrUndefined = errors.New("amount can't be undefined")
+)
+
+func ingredientYAMLToIngredient(iy ingredientYAML) (Ingredient, error) {
+	if iy.Amount == "" {
+		if iy.Unit != "" {
+			return Ingredient{}, ErrNoUnit
+		}
+		return Ingredient{Item: iy.Item}, nil
+	}
+	var f Fraction
+	if strings.Contains(iy.Amount, "/") {
+		parts := strings.Split(iy.Amount, "/")
+		num, err := strconv.Atoi(parts[0])
+		if err != nil {
+			return Ingredient{}, err
+		}
+		den, err := strconv.Atoi(parts[1])
+		if err != nil {
+			return Ingredient{}, err
+		}
+		f.Numerator, f.Denominator = num, den
+	} else {
+		num, err := strconv.Atoi(iy.Amount)
+		if err != nil {
+			return Ingredient{}, err
+		}
+		f.Numerator, f.Denominator = num, 1
+	}
+	if f.IsUndefined() {
+		return Ingredient{}, ErrUndefined
+	}
+	return Ingredient{
+		Amount: f,
+		Unit:   iy.Unit,
+		Item:   iy.Item,
+	}, nil
+}
+
+type ingredientYAML struct {
+	Amount string `yaml:"amount"`
+	Unit   string `yaml:"unit"`
+	Item   string `yaml:"item"`
+}
+
+// Ingredient ...
+type Ingredient struct {
+	Amount     Fraction
+	Unit, Item string
+}
+
+func article(x string) string {
+	switch x[0] {
+	case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
+		return "an"
+	}
+	return "a"
+}
+
+func plural(x string) string {
+	if x[len(x)-1] == 'o' {
+		return x + "es"
+	}
+	if x[len(x)-1] == 'y' {
+		return x[:len(x)-1] + "ies"
+	}
+	return x + "s"
+}
+
+// String ...
+func (i Ingredient) String() string {
+	if i.Amount.IsUndefined() && i.Unit == "" {
+		return i.Item
+	}
+	var out string
+	if i.Unit != "" {
+		if i.Amount.IsWhole() && i.Amount.Numerator == 1 {
+			out = fmt.Sprintf(
+				"%s %s of %s",
+				i.Amount, i.Unit, i.Item,
+			)
+		} else if i.Amount.IsWhole() {
+			out = fmt.Sprintf(
+				"%s %s of %s",
+				i.Amount, plural(i.Unit), i.Item,
+			)
+		} else {
+			out = fmt.Sprintf(
+				"%s of %s %s of %s",
+				i.Amount,
+				article(i.Unit),
+				i.Unit,
+				i.Item,
+			)
+		}
+	} else {
+		if i.Amount.IsWhole() && i.Amount.Numerator == 1 {
+			out = fmt.Sprintf("%s %s", i.Amount, i.Item)
+		} else if i.Amount.IsWhole() {
+			out = fmt.Sprintf("%s %s", i.Amount, i.Item)
+		} else {
+			out = fmt.Sprintf(
+				"%s of %s %s",
+				i.Amount, article(i.Item), i.Item,
+			)
+		}
+	}
+	return out
+}
+
+// Fraction ...
+type Fraction struct {
+	Numerator, Denominator int
+}
+
+// IsWhole ...
+func (f Fraction) IsWhole() bool {
+	return f.Simplified().Denominator == 1
+}
+
+// IsUndefined ...
+func (f Fraction) IsUndefined() bool {
+	return f.Denominator == 0
+}
+
+// Simplified ...
+func (f Fraction) Simplified() Fraction {
+	a, b := f.Numerator, f.Denominator
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return Fraction{
+		Numerator:   f.Numerator / a,
+		Denominator: f.Denominator / a,
+	}
+}
+
+// String ...
+func (f Fraction) String() string {
+	f = f.Simplified()
+	if f.Denominator == 1 {
+		return fmt.Sprintf("%d", f.Numerator)
+	}
+	return fmt.Sprintf("%d/%d", f.Numerator, f.Denominator)
 }

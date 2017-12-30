@@ -3,26 +3,60 @@ name: Beef Baklava
 description: Ground beef baklava with tzaziki suace.
 
 ingredients:
-    - 2 Cups of Chopped Pistachios
-    - 2 Cups of Dried Cranberries
-    - 1 White Onion
-    - 2 Teaspoons of Salt
-    - 1 Teaspoon of Pepper
-    - 1/2 Teaspoon of Cayenne
-    - 1/2 Teaspoon of Nutmeg
-    - 1/2 Teaspoon of Ground Thyme
-    - 2 Tablespoons of Ground Sage
-    - 2 Pounds of Ground Beef
-    - 3 Sheets of Filo Dough
-    - 1 Egg
-    - 2 Cups of Greek Yogurt
-    - 1 Cucumber
-    - 4 Cloves of Garlic
-    - 1/2 of a Lemon
-    - 3 Tablespoons of Mint
-    - 1 Teaspoon of Salt
-    - 1 Teaspoon of Pepper
-    - 1 Teaspoon of Cayenne
+    - amount: 2
+      unit: Teaspoon
+      item: Salt
+    - amount: 1
+      unit: Teaspoon
+      item: Pepper
+    - amount: 1/2
+      unit: Teaspoon
+      item: Cayenne
+    - amount: 1/2
+      unit: Teaspoon
+      item: Nutmeg
+    - amount: 1/2
+      unit: Teaspoon
+      item: Ground Thyme
+    - amount: 1/2
+      unit: Teaspoon
+      item: Ground Sage
+    - amount: 2
+      unit: Cup
+      item: Pistachios
+    - amount: 2
+      unit: Cup
+      item: Cranberries
+    - amount: 1
+      item: Whtie Onion
+    - amount: 2
+      unit: Pound
+      item: Ground Beef
+    - amount: 3
+      unit: Sheet
+      item: Filo Dough
+    - amount: 2
+      unit: Cup
+      item: Greek Yogurt
+    - amount: 1
+      item: Cucumber
+    - amount: 4
+      unit: Clove
+      item: Garlic
+    - amount: 1/2
+      item: Lemon
+    - amount: 1
+      unit: Teaspoon
+      item: Salt
+    - amount: 1
+      unit: Teaspoon
+      item: Pepper
+    - amount: 1
+      unit: Teaspoon
+      item: Cayenne
+    - amount: 3
+      unit: Tablespoon
+      item: Mint
 
 steps:
     - Shred the cucumber.

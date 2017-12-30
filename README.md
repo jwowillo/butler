@@ -21,7 +21,7 @@ in the '--working-directory' flag.
 
 ## Documentation
 
-Documentation is located in directory 'doc' in Markdown files for the project
+Documentation is in directory 'doc' in Markdown files for the project
 requirements and design. PDFs generated from these are also included.
 
-Online API documentation is located at godoc.org/github.com/jwowillo/butler.
+API documentation is located at godoc.org/github.com/jwowillo/butler.

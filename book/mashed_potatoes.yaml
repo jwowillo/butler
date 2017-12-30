@@ -3,10 +3,13 @@ name: Mashed Potatoes
 description: Mashed potatoes with butter and garlic.
 
 ingredients:
-    - Salt
-    - Pepper
-    - Butter
-    - Garlic
+    - amount: 1
+      unit: Pound
+      item: Potatoes
+    - item: Salt
+    - item: Pepper
+    - item: Butter
+    - item: Garlic
 
 steps:
     - Boil salted water with pealed and chunked potatoes.

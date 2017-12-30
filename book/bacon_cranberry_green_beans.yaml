@@ -4,15 +4,22 @@ description: Green beans finished in chicken broth with bacon, cranberries, and
     shallots.
 
 ingredients:
-    - 1 Pound of Green Beans
-    - Salt
-    - 4 Bacon Strips
-    - 1 Handful of Cranberries
-    - 1 Shallot
-    - 1 Cup of Chicken Broth
-    - Pepper
-    - Cayenne
-    - Ham Seasoning
+    - amount: 1
+      unit: Pound
+      item: Green Beans
+    - item: Salt
+    - item: Pepper
+    - item: Cayenne
+    - item: Ham Seasoning
+    - amount: 4
+      unit: Slice
+      item: Bacon
+    - amount: 1/2
+      unit: Cup
+      item: Cranberries
+    - amount: 1
+      item: Shallot
+
 
 steps:
     - Slice the cranberries and dice the bacon and shallots.
