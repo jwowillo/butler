@@ -15,7 +15,7 @@ ingredients:
       item: Chicken Broth
     - amount: 2
       item: Tomatoes
-    - amount: 1/2
+    - amount: 1
       unit: Cup
       item: Corn Kernels
     - amount: 1
@@ -28,13 +28,11 @@ ingredients:
       item: Red Bell Pepper
 
 steps:
-    - Dice the onion and peppers.
-    - Cut the tomatoes in half and scoop the cores into a bowl.
-    - Dice the remaining tomato outside and crush the tomato core.
-    - Melt butter in a pan on medium heat.
-    - Toast the rice in the butter until golden.
-    - Add the onion, peppers, diced tomato, corn, crushed tomatoes, and some
-      salt and cook until the vegetables soften.
-    - Add the broth, bring to a boil, reduce to a simmer, and cover until all
-      the broth is gone.
+    - Cut the tomatoes in half, scoop the cores into a bowl, and crush them.
+    - Dice the onion, tomatoes, and peppers.
+    - Melt the butter in a pan on medium heat.
+    - Add the rice and all the diced vegetables with salt and cook until the
+      vegetables soften.
+    - Add the broth and crushed tomatoes, bring to a boil, reduce to a simmer,
+      and cover until all the broth is gone.
     - Taste for salt.
