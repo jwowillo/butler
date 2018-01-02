@@ -3,13 +3,13 @@ name: Beef Baklava
 description: Ground beef baklava with tzaziki suace.
 
 ingredients:
-    - amount: 2
+    - amount: 3
       unit: Teaspoon
       item: Salt
-    - amount: 1
+    - amount: 2
       unit: Teaspoon
       item: Pepper
-    - amount: 1/2
+    - amount: 7/2
       unit: Teaspoon
       item: Cayenne
     - amount: 1/2
@@ -45,15 +45,6 @@ ingredients:
       item: Garlic
     - amount: 1/2
       item: Lemon
-    - amount: 1
-      unit: Teaspoon
-      item: Salt
-    - amount: 1
-      unit: Teaspoon
-      item: Pepper
-    - amount: 1
-      unit: Teaspoon
-      item: Cayenne
     - amount: 3
       unit: Tablespoon
       item: Mint
@@ -61,16 +52,20 @@ ingredients:
 steps:
     - Shred the cucumber.
     - Place a pinch of salt over cucumber and let sit to drain water.
-    - Combine the yogurt, juice from half of a lemon, salt, pepper, cayenne,
+    - Combine the yogurt, juice from half of a lemon, 1 teaspoon of salt,
+      1 teaspoon of pepper, 1 teaspoon of cayenne,
       chopped mint, and minced garlic into a tzaziki sauce.
     - Refrigerate until ready to serve.
-    - Cook ground beef, salt, pepper, cayenne, nutmeg, thyme, and sage
+    - Crush all the pistachios.
+    - Cook ground beef, the rest of the salt, the rest of the pepper,
+      the rest of the cayenne, nutmeg, thyme, and sage
       in a pan until done.
-    - Drain all the fat.
-    - In a baking pan, make layers of beef, cranberry, pistachio, filo dough,
-      pistachio, cranberry until the last layer of filo dough.
-    - Cut the baklava into pieces of desired shape.
-    - Make an egg wash out of the 1 egg and put it on top of the baklava.
-    - Bake in a 350 degree oven until the the top is well browned.
+    - While the ground beef is cooking, make an egg wash out of the 1 egg,
+      spread the 3 sheets of filo dough out, egg wash them, and bake until
+      golden.
+    - Drain all the fat from the beef.
+    - In a baking pan, layer beef, then cranberry, then pistachio, then filo
+      dough 3 times.
+    - Press down into pan and cut baklava pieces into desired shape.
     - Put the tzaziki sauce on top of each served piece and garnish with the
-      reminaing pistachios and cranberries.
+      any extra pistachios and cranberries.
