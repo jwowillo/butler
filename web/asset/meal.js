@@ -67,7 +67,7 @@ function makeMeal(mealContainer, recipeContainer, checked) {
       const partsA = ingredientA.split(' ');
       let amountA = -1, restA = '';
       if (!isNumber(partsA[0])) {
-        restA = partsA[0];
+        restA = partsA.join(' ');
       } else {
         amountA = eval(partsA[0]);
         restA = partsA.slice(1).join(' ');
@@ -82,7 +82,7 @@ function makeMeal(mealContainer, recipeContainer, checked) {
           const partsB = ingredientB.split(' ');
           let amountB = '', restB = '';
           if (!isNumber(partsB[0])) {
-            restB = partsB[0];
+            restB = partsB.join(' ');
           } else {
             amountB = eval(partsB[0]);
             restB = partsB.slice(1).join(' ');
