@@ -1,3 +1,7 @@
+(function() {
+
+// BUG: Bookmarks not implemented.
+
 function recipeToString(recipe) {
   var out = recipe.name;
   out += recipe.description;
@@ -34,3 +38,5 @@ const input = document.getElementById('filter');
 const results = document.getElementById('results');
 
 input.addEventListener('keyup', (event) => listRecipes(input.value, results));
+
+})();

@@ -28,13 +28,15 @@ ingredients:
       unit: Cup
       item: Cranberries
     - amount: 1
-      item: Whtie Onion
+      item: White Onion
     - amount: 2
       unit: Pound
       item: Ground Beef
     - amount: 3
       unit: Sheet
       item: Filo Dough
+    - amount: 1
+      item: Egg
     - amount: 2
       unit: Cup
       item: Greek Yogurt
