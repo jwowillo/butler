@@ -159,4 +159,5 @@ var plurals = map[string]string{
 	"link":                    "links",
 	"spinach":                 "spinach",
 	"greek yogurt":            "greek yogurt",
+	"dried cranberry":         "dried cranberries",
 }

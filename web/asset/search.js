@@ -3,35 +3,21 @@
 // BUG: Bookmarks not implemented.
 
 function recipeToString(recipe) {
-  var out = recipe.name;
-  out += recipe.description;
-  for (const ingredient of recipe.ingredients) {
-    out += ingredient;
-  }
-  for (const step of recipe.steps) {
-    out += step;
-  }
+  let out = recipe.name + recipe.description;
+  for (const ingredient of recipe.ingredients) out += ingredient;
+  for (const step of recipe.steps) out += step;
   return out;
 }
 
 function listRecipes(filter, container) {
   filter = filter.toLowerCase();
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  const ul = document.createElement('ul');
+  clear(container);
+  const recipes = [];
   for (const recipe of recipes) {
-    if (!recipeToString(recipe).toLowerCase().includes(filter)) {
-      continue;
-    }
-    const a = document.createElement('a');
-    a.appendChild(document.createTextNode(recipe.name));
-    a.href = recipe.path;
-    const li = document.createElement('li');
-    li.appendChild(a);
-    ul.appendChild(li);
+    if (!recipeToString(recipe).toLowerCase().includes(filter)) continue;
+    recipes.push(a(recipe.path, recipe.name));
   }
-  container.appendChild(ul);
+  container.appendChild(ul(recipes));
 }
 
 const input = document.getElementById('filter');

@@ -26,6 +26,7 @@ function clear(container) {
 }
 
 function remove(node) {
+  if (!node.parentNode) return;
   node.parentNode.removeChild(node);
 }
 
@@ -41,4 +42,11 @@ function checkBox(checkedAction, uncheckedAction) {
     else uncheckedAction();
   })
   return input;
+}
+
+function a(href, name) {
+  const l = document.createElement('a');
+  l.href = href;
+  l.innerHTML = name;
+  return l;
 }

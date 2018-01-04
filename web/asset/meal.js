@@ -1,46 +1,66 @@
 (function() {
 
-// BUG: Bookmarks aren't implemented yet.
+function getChecked() {
+  const checked = get('checked');
+  if (!(checked instanceof Array)) checked = [];
+  for (const recipe of checked) {
+    for (const i in recipe.ingredients) {
+      recipe.ingredients[i].amount = new Fraction(
+        recipe.ingredients[i].amount.numerator,
+        recipe.ingredients[i].amount.denominator
+      );
+    }
+  }
+  return checked;
+}
+
+function setChecked(checked) {
+  set('checked', checked);
+}
 
 function addCheckBoxes(mealContainer, recipeContainer) {
   const map = {};
+  const checked = new Set();
+  for (const recipe of getChecked()) checked.add(recipe.name);
   for (const recipe of recipes) map[recipe.name] = recipe;
-  let checked = [];
   for (const item of recipeContainer.getElementsByTagName('li')) {
     const link = item.firstChild;
     const input = checkBox(
       function() {
+        const checked = getChecked();
         checked.push(map[link.innerHTML]);
+        setChecked(checked);
         makeMeal(mealContainer, recipeContainer, checked);
       },
       function() {
+        let checked = getChecked();
         checked = checked.filter((recipe) => recipe.name != link.innerHTML);
+        setChecked(checked);
         makeMeal(mealContainer, recipeContainer, checked);
       }
     )
+    if (checked.has(link.innerHTML)) input.checked = true;
     prepend(link, input);
   }
 }
 
 function makeMeal(mealContainer, recipeContainer, checked) {
-  if (checked.length == 0) remove(mealContainer);
-  if (checked.length == 1) prepend(recipeContainer, mealContainer);
+  if (checked.length == 0) {
+    remove(mealContainer);
+    return;
+  }
   clear(mealContainer);
   mealContainer.appendChild(h3('Meal:'));
   mealContainer.appendChild(h2('Ingredients:'));
   mealContainer.appendChild(ul(ingredients(checked)));
   mealContainer.appendChild(h2('Steps:'));
   mealContainer.appendChild(ul(recipeLinks(checked)));
+  prepend(recipeContainer, mealContainer);
 }
 
 function recipeLinks(checked) {
   const ls = [];
-  for (const recipe of checked) {
-    const link = document.createElement('a');
-    link.href = recipe.path;
-    link.innerHTML = recipe.name;
-    ls.push(link);
-  }
+  for (const recipe of checked) ls.push(a(recipe.path, recipe.name));
   return ls;
 }
 
@@ -79,5 +99,6 @@ meal.id = 'box';
 const results = document.getElementById('results');
 
 addCheckBoxes(meal, results);
+makeMeal(meal, results, getChecked());
 
 })();
