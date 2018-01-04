@@ -1,7 +1,7 @@
 (function() {
 
 function getChecked() {
-  const checked = get('checked');
+  let checked = get('checked');
   if (!(checked instanceof Array)) checked = [];
   for (const recipe of checked) {
     for (const i in recipe.ingredients) {
