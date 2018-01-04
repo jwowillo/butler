@@ -5,7 +5,7 @@ description: Mashed potatoes with butter and garlic.
 ingredients:
     - amount: 1
       unit: Pound
-      item: Potatoes
+      item: Potato
     - item: Salt
     - item: Pepper
     - item: Butter

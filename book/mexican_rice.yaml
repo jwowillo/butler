@@ -14,10 +14,10 @@ ingredients:
       unit: Cup
       item: Chicken Broth
     - amount: 2
-      item: Tomatoes
+      item: Tomato
     - amount: 1
       unit: Cup
-      item: Corn Kernels
+      item: Corn Kernel
     - amount: 1
       item: Spanish Onion
     - amount: 1

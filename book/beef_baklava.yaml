@@ -9,7 +9,7 @@ ingredients:
     - amount: 2
       unit: Teaspoon
       item: Pepper
-    - amount: 7/2
+    - amount: 1/2
       unit: Teaspoon
       item: Cayenne
     - amount: 1/2
@@ -23,10 +23,10 @@ ingredients:
       item: Ground Sage
     - amount: 2
       unit: Cup
-      item: Pistachios
+      item: Pistachio
     - amount: 2
       unit: Cup
-      item: Cranberries
+      item: Cranberry
     - amount: 1
       item: White Onion
     - amount: 2

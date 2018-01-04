@@ -8,7 +8,7 @@ ingredients:
       unit: Thick Slice
       item: Toast
     - amount: 4
-      item: Eggs
+      item: Egg
     - item: Salt
     - item: Pepper
     - item: Parsley

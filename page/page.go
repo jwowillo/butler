@@ -27,9 +27,49 @@ func List(web string, rs []recipe.Recipe) ([]gen.Page, error) {
 	return append(ps, as...), nil
 }
 
+type recipeTemplate struct {
+	Path        string
+	Name        string
+	Description string
+	Ingredients []ingredientTemplate
+	Steps       []string
+	Notes       []string
+}
+
+func newRecipeTemplate(r recipe.Recipe) recipeTemplate {
+	is := make([]ingredientTemplate, 0, len(r.Ingredients))
+	for _, i := range r.Ingredients {
+		is = append(is, ingredientTemplate{
+			Ingredient:       i,
+			SingularPhrase:   recipe.SingularPhrase(i),
+			PluralPhrase:     recipe.PluralPhrase(i),
+			FractionalPhrase: recipe.FractionalPhrase(i),
+		})
+	}
+	return recipeTemplate{
+		Path:        r.Path,
+		Name:        r.Name,
+		Description: r.Description,
+		Ingredients: is,
+		Steps:       r.Steps,
+		Notes:       r.Notes,
+	}
+}
+
+type ingredientTemplate struct {
+	recipe.Ingredient
+	SingularPhrase   string
+	PluralPhrase     string
+	FractionalPhrase string
+}
+
 // tmpls is a helper function to return a list of all the gen.Templates for
 // butler or an error if the gen.Templates couldn't be created.
 func tmpls(web string, rs []recipe.Recipe) ([]gen.Page, error) {
+	rts := make([]recipeTemplate, 0, len(rs))
+	for _, r := range rs {
+		rts = append(rts, newRecipeTemplate(r))
+	}
 	paths := func(ps ...string) []string {
 		out := make([]string, 0, len(ps))
 		for _, p := range ps {
@@ -39,22 +79,22 @@ func tmpls(web string, rs []recipe.Recipe) ([]gen.Page, error) {
 	}
 	hp, err := gen.NewTemplate(
 		paths("base.html", "index.html"),
-		rs,
+		rts,
 		"index.html",
 	)
 	if err != nil {
 		return nil, err
 	}
-	jsp, err := gen.NewTemplate(paths("recipes.js"), rs, "recipes.js")
+	jsp, err := gen.NewTemplate(paths("recipes.js"), rts, "recipes.js")
 	if err != nil {
 		return nil, err
 	}
-	rps := make([]gen.Page, 0, len(rs))
-	for _, r := range rs {
+	rps := make([]gen.Page, 0, len(rts))
+	for _, rt := range rts {
 		rp, err := gen.NewTemplate(
 			paths("base.html", "recipe.html"),
-			r,
-			filepath.Join(r.Path, "index.html"),
+			rt,
+			filepath.Join(rt.Path, "index.html"),
 		)
 		if err != nil {
 			return nil, err

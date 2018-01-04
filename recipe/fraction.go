@@ -8,18 +8,18 @@ type Fraction struct {
 }
 
 // IsWhole returns true if the simplified Fraction is a whole number.
-func (f Fraction) IsWhole() bool {
-	return f.Simplified().Denominator == 1
+func IsWhole(f Fraction) bool {
+	return Simplify(f).Denominator == 1
 }
 
 // IsUndefined returns true if the denominator of the Fraction is 0.
-func (f Fraction) IsUndefined() bool {
+func IsUndefined(f Fraction) bool {
 	return f.Denominator == 0
 }
 
-// Simplified returns the same Fraction with the greatest common divisor of the
-// numerator and denominator divided out.
-func (f Fraction) Simplified() Fraction {
+// Simplify the Fraction bye dividing the greatest common divisor of the
+// numerator and denominator out.
+func Simplify(f Fraction) Fraction {
 	a, b := f.Numerator, f.Denominator
 	for b != 0 {
 		a, b = b, a%b
@@ -30,9 +30,8 @@ func (f Fraction) Simplified() Fraction {
 	}
 }
 
-// String representation of the Fraction.
 func (f Fraction) String() string {
-	f = f.Simplified()
+	f = Simplify(f)
 	if f.Denominator == 1 {
 		return fmt.Sprintf("%d", f.Numerator)
 	}
