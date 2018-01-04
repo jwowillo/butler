@@ -4,6 +4,7 @@ body {
   text-align: center;
   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
   line-height: 1.25;
+  margin: 0px;
 }
 
 body, a {
