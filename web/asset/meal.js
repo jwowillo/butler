@@ -19,16 +19,14 @@ function setChecked(checked) {
 }
 
 function addCheckBoxes(mealContainer, recipeContainer) {
-  const map = {};
   const checked = new Set();
   for (const recipe of getChecked()) checked.add(recipe.name);
-  for (const recipe of recipes) map[recipe.name] = recipe;
   for (const item of recipeContainer.getElementsByTagName('li')) {
     const link = item.firstChild;
     const input = checkBox(
       function() {
         const checked = getChecked();
-        checked.push(map[link.innerHTML]);
+        checked.push(recipes[link.innerHTML]);
         setChecked(checked);
         makeMeal(mealContainer, recipeContainer, checked);
       },

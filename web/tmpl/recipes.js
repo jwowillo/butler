@@ -1,6 +1,6 @@
-const recipes = [
+const recipes = {
   {{ range $i, $r := . }}
-  {
+  '{{ $r.Name }}': {
     'path': '{{ $r.Path }}',
     'name': '{{ $r.Name }}',
     'description': '{{ $r.Description }}',
@@ -31,4 +31,4 @@ const recipes = [
     ]
   }{{ if ne (inc $i) (len $) }},{{ end }}
   {{ end }}
-];
+};

@@ -8,13 +8,11 @@ function recipeToString(recipe) {
 }
 
 function listRecipes(container, filter) {
-  const map = {};
-  for (const recipe of recipes) map[recipe.name] = recipe;
   set('filter', filter);
   filter = filter.toLowerCase();
   for (const recipe of container.getElementsByTagName('li')) {
     const link = recipe.getElementsByTagName('a')[0].innerHTML;
-    if (recipeToString(map[link]).toLowerCase().includes(filter)) {
+    if (recipeToString(recipes[link]).toLowerCase().includes(filter)) {
       recipe.style.display = 'block';
     } else {
       recipe.style.display = 'none';
