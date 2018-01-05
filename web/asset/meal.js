@@ -1,3 +1,5 @@
+(function() {
+
 function getChecked() {
   let checked = get('checked');
   if (!(checked instanceof Array)) checked = [];
@@ -92,8 +94,6 @@ function ingredients(checked) {
   }
   return is;
 }
-
-(function() {
 
 const meal = document.createElement('div');
 meal.id = 'box';

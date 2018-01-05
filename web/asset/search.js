@@ -7,25 +7,27 @@ function recipeToString(recipe) {
   return out;
 }
 
-function listRecipes(container, meal, filter) {
+function listRecipes(container, filter) {
+  const map = {};
+  for (const recipe of recipes) map[recipe.name] = recipe;
   set('filter', filter);
   filter = filter.toLowerCase();
-  clear(container);
-  const filtered = [];
-  for (const recipe of recipes) {
-    if (!recipeToString(recipe).toLowerCase().includes(filter)) continue;
-    filtered.push(a(recipe.path, recipe.name));
+  for (const recipe of container.getElementsByTagName('li')) {
+    const link = recipe.getElementsByTagName('a')[0].innerHTML;
+    if (recipeToString(map[link]).toLowerCase().includes(filter)) {
+      recipe.style.display = 'block';
+    } else {
+      recipe.style.display = 'none';
+    }
   }
-  container.appendChild(ul(filtered));
-  addCheckBoxes(meal, container, getChecked());
 }
 
 const input = document.getElementById('filter');
-const meal = document.getElementById('box');
 const results = document.getElementById('results');
 
-input.addEventListener('keyup', (event) => listRecipes(results, meal, input.value));
+input.addEventListener('keyup', (event) => listRecipes(results, input.value));
 
-listRecipes(results, meal, get('filter'));
+input.value = get('filter');
+listRecipes(results, get('filter'));
 
 })();
