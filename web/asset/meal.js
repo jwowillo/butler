@@ -1,5 +1,3 @@
-(function() {
-
 function getChecked() {
   let checked = get('checked');
   if (!(checked instanceof Array)) checked = [];
@@ -42,14 +40,15 @@ function addCheckBoxes(mealContainer, recipeContainer) {
     if (checked.has(link.innerHTML)) input.checked = true;
     prepend(link, input);
   }
+  makeMeal(mealContainer, recipeContainer, getChecked());
 }
 
 function makeMeal(mealContainer, recipeContainer, checked) {
+  clear(mealContainer);
   if (checked.length == 0) {
     remove(mealContainer);
     return;
   }
-  clear(mealContainer);
   mealContainer.appendChild(h3('Meal:'));
   mealContainer.appendChild(h2('Ingredients:'));
   mealContainer.appendChild(ul(ingredients(checked)));
@@ -94,11 +93,12 @@ function ingredients(checked) {
   return is;
 }
 
+(function() {
+
 const meal = document.createElement('div');
 meal.id = 'box';
 const results = document.getElementById('results');
 
 addCheckBoxes(meal, results);
-makeMeal(meal, results, getChecked());
 
 })();

@@ -22,15 +22,17 @@ function h3(name) {
 }
 
 function clear(container) {
+  if (!container) return;
   while (container.firstChild) container.removeChild(container.firstChild);
 }
 
 function remove(node) {
-  if (!node.parentNode) return;
+  if (!node || !node.parentNode) return;
   node.parentNode.removeChild(node);
 }
 
 function prepend(container, item) {
+  if (!container) return;
   container.parentNode.insertBefore(item, container);
 }
 

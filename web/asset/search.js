@@ -1,7 +1,5 @@
 (function() {
 
-// BUG: Bookmarks not implemented.
-
 function recipeToString(recipe) {
   let out = recipe.name + recipe.description;
   for (const ingredient of recipe.ingredients) out += ingredient;
@@ -9,20 +7,25 @@ function recipeToString(recipe) {
   return out;
 }
 
-function listRecipes(filter, container) {
+function listRecipes(container, meal, filter) {
+  set('filter', filter);
   filter = filter.toLowerCase();
   clear(container);
-  const recipes = [];
+  const filtered = [];
   for (const recipe of recipes) {
     if (!recipeToString(recipe).toLowerCase().includes(filter)) continue;
-    recipes.push(a(recipe.path, recipe.name));
+    filtered.push(a(recipe.path, recipe.name));
   }
-  container.appendChild(ul(recipes));
+  container.appendChild(ul(filtered));
+  addCheckBoxes(meal, container, getChecked());
 }
 
 const input = document.getElementById('filter');
+const meal = document.getElementById('box');
 const results = document.getElementById('results');
 
-input.addEventListener('keyup', (event) => listRecipes(input.value, results));
+input.addEventListener('keyup', (event) => listRecipes(results, meal, input.value));
+
+listRecipes(results, meal, get('filter'));
 
 })();
