@@ -3,13 +3,13 @@ package recipe
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strings"
-
-	l "log"
 )
 
-func log(err error, x string) {
-	l.Println(
+// l logs the errNoPlural for the word x.
+func l(err errN, x string) {
+	log.Println(
 		err,
 		":",
 		strings.ToLower(x),
@@ -27,7 +27,7 @@ func SingularPhrase(i Ingredient) string {
 	} else {
 		p, err := plural(i.Item)
 		if err != nil {
-			log(err, i.Item)
+			l(err, i.Item)
 		}
 		out = fmt.Sprintf(
 			"%s of %s",
@@ -46,17 +46,17 @@ func PluralPhrase(i Ingredient) string {
 	if i.Unit == "" {
 		p, err := plural(i.Item)
 		if err != nil {
-			log(err, i.Item)
+			l(err, i.Item)
 		}
 		out = strings.Title(p)
 	} else {
 		pa, err := plural(i.Unit)
 		if err != nil {
-			log(err, i.Item)
+			l(err, i.Item)
 		}
 		pb, err := plural(i.Item)
 		if err != nil {
-			log(err, i.Item)
+			l(err, i.Item)
 		}
 		out = fmt.Sprintf(
 			"%s of %s",
@@ -78,7 +78,7 @@ func FractionalPhrase(i Ingredient) string {
 	} else {
 		p, err := plural(i.Item)
 		if err != nil {
-			log(err, i.Item)
+			l(err, i.Item)
 		}
 		out = fmt.Sprintf(
 			"of %s %s of %s",
@@ -89,8 +89,12 @@ func FractionalPhrase(i Ingredient) string {
 	return out
 }
 
+// errNoPlural is returned if a plural for the word isn't defined.
 var errNoPlural = errors.New("no plural for word")
 
+// plural for the word.
+//
+// Returns errNoPlural if no plural is defined.
 func plural(x string) (string, error) {
 	p, ok := plurals[strings.ToLower(x)]
 	if !ok {
@@ -99,6 +103,7 @@ func plural(x string) (string, error) {
 	return p, nil
 }
 
+// article to precede a word.
 func article(x string) string {
 	switch x[0] {
 	case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
@@ -107,6 +112,7 @@ func article(x string) string {
 	return "a"
 }
 
+// plurals is a map of words to their defined plurals.
 var plurals = map[string]string{
 	"green bean":              "green beans",
 	"salt":                    "salt",

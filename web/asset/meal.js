@@ -1,5 +1,6 @@
 (function() {
 
+// getChecked returns checked recipes.
 function getChecked() {
   let checked = get('checked');
   if (!(checked instanceof Array)) checked = [];
@@ -14,10 +15,13 @@ function getChecked() {
   return checked;
 }
 
+// setChecked sets checked recipes.
 function setChecked(checked) {
   set('checked', checked);
 }
 
+// addCheckBoxes that put meals in the mealContainer to the left of recipes in
+// the recipeContainer.
 function addCheckBoxes(mealContainer, recipeContainer) {
   const checked = new Set();
   for (const recipe of getChecked()) checked.add(recipe.name);
@@ -43,6 +47,8 @@ function addCheckBoxes(mealContainer, recipeContainer) {
   makeMeal(mealContainer, recipeContainer, getChecked());
 }
 
+// makeMeal adds the checked meals to the mealContainer and inserts it before
+// the recipeContainer.
 function makeMeal(mealContainer, recipeContainer, checked) {
   clear(mealContainer);
   if (checked.length == 0) {
@@ -57,12 +63,14 @@ function makeMeal(mealContainer, recipeContainer, checked) {
   prepend(recipeContainer, mealContainer);
 }
 
+// recipeLinks for checked recipes.
 function recipeLinks(checked) {
   const ls = [];
   for (const recipe of checked) ls.push(a(recipe.path, recipe.name));
   return ls;
 }
 
+// ingredients for checked recipes.
 function ingredients(checked) {
   const is = [];
   const used = new Set();

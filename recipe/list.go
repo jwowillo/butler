@@ -18,10 +18,10 @@ import (
 //   ingredients:
 //       - ?amount: <AMOUNT>
 //         ?unit: <UNIT>
-//         ?item: <ITEM>
+//         item: <ITEM>
 //       - ?amount: <AMOUNT>
 //         ?unit: <UNIT>
-//         ?item: <ITEM>
+//         item: <ITEM>
 //   steps:
 //       - <STEP>
 //       - <STEP>

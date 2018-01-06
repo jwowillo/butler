@@ -27,6 +27,8 @@ func List(web string, rs []recipe.Recipe) ([]gen.Page, error) {
 	return append(ps, as...), nil
 }
 
+// recipeTemplate is the struct for a recipe.Recipe which is injected into
+// templates.
 type recipeTemplate struct {
 	Path        string
 	Name        string
@@ -36,6 +38,7 @@ type recipeTemplate struct {
 	Notes       []string
 }
 
+// newRecipeTemplate makes a recipeTemplate from a recipe.Recipe.
 func newRecipeTemplate(r recipe.Recipe) recipeTemplate {
 	is := make([]ingredientTemplate, 0, len(r.Ingredients))
 	for _, i := range r.Ingredients {
@@ -56,6 +59,8 @@ func newRecipeTemplate(r recipe.Recipe) recipeTemplate {
 	}
 }
 
+// ingredientTemplate is the struct for a recipe.Ingredient which is injected
+// into templates.
 type ingredientTemplate struct {
 	recipe.Ingredient
 	SingularPhrase   string

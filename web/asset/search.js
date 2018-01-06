@@ -1,5 +1,6 @@
 (function() {
 
+// recipeToString concatenates the recipe into a long string.
 function recipeToString(recipe) {
   let out = recipe.name + recipe.description;
   for (const ingredient of recipe.ingredients) out += ingredient;
@@ -7,6 +8,7 @@ function recipeToString(recipe) {
   return out;
 }
 
+// listRecipes lists all the recipes that match the filter in the container.
 function listRecipes(container, filter) {
   set('filter', filter);
   filter = filter.toLowerCase();

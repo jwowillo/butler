@@ -17,7 +17,7 @@ func IsUndefined(f Fraction) bool {
 	return f.Denominator == 0
 }
 
-// Simplify the Fraction bye dividing the greatest common divisor of the
+// Simplify the Fraction by dividing the greatest common divisor of the
 // numerator and denominator out.
 func Simplify(f Fraction) Fraction {
 	a, b := f.Numerator, f.Denominator
