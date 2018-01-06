@@ -8,7 +8,7 @@ import (
 )
 
 // l logs the errNoPlural for the word x.
-func l(err errN, x string) {
+func l(err error, x string) {
 	log.Println(
 		err,
 		":",
