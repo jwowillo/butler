@@ -3,28 +3,28 @@ name: Mexican Rice
 description: Rice cooked in tomato and chicken broth with peppers and onions.
 
 ingredients:
-    - amount: 2
+    - amount: 1
       unit: Cup
       item: White Rice
-    - amount: 4
+    - amount: 2
       unit: Tablespoon
       item: Butter
     - item: Salt
-    - amount: 4
+    - amount: 3/2
       unit: Cup
       item: Chicken Broth
-    - amount: 2
-      item: Tomato
     - amount: 1
+      item: Tomato
+    - amount: 1/2
       unit: Cup
       item: Corn Kernel
-    - amount: 1
+    - amount: 1/2
       item: Spanish Onion
-    - amount: 1
+    - amount: 1/2
       item: Poblano Pepper
-    - amount: 1
+    - amount: 1/2
       item: Jalapeno
-    - amount: 1
+    - amount: 1/2
       item: Red Bell Pepper
 
 steps:

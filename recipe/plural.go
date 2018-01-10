@@ -10,8 +10,7 @@ import (
 // l logs the errNoPlural for the word x.
 func l(err error, x string) {
 	log.Println(
-		err,
-		":",
+		err.Error()+":",
 		strings.ToLower(x),
 		"needs to be added to dictionary",
 	)
@@ -52,7 +51,7 @@ func PluralPhrase(i Ingredient) string {
 	} else {
 		pa, err := plural(i.Unit)
 		if err != nil {
-			l(err, i.Item)
+			l(err, i.Unit)
 		}
 		pb, err := plural(i.Item)
 		if err != nil {
@@ -166,4 +165,10 @@ var plurals = map[string]string{
 	"spinach":                 "spinach",
 	"greek yogurt":            "greek yogurt",
 	"dried cranberry":         "dried cranberries",
+	"flour":                   "flour",
+	"brown sugar":             "brown sugar",
+	"cinnamon":                "cinnamon",
+	"baking powder":           "baking powder",
+	"milk":                    "milk",
+	"stick":                   "sticks",
 }

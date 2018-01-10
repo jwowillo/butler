@@ -1,0 +1,34 @@
+name: Buttery Brown Sugar Waffles
+
+description: Waffles stuffed with butter and brown sugar.
+
+ingredients:
+    - amount: 2
+      unit: Cup
+      item: Flour
+    - amount: 2
+      unit: Tablespoon
+      item: Brown Sugar
+    - amount: 2
+      unit: Teaspoon
+      item: Cinnamon
+    - amount: 4
+      unit: Teaspoon
+      item: Baking Powder
+    - amount: 1
+      unit: Teaspoon
+      item: Salt
+    - amount: 2
+      item: Egg
+    - amount: 3/2
+      unit: Cup
+      item: Milk
+    - amount: 1
+      unit: Stick
+      item: Butter
+
+steps:
+    - Brown the butter.
+    - Mix all the dry and wet ingredients in separate bowls.
+    - Combine the dry and wet ingredients.
+    - Pour in waffle iron until cooked.
