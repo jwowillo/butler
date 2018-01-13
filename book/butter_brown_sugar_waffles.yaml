@@ -1,26 +1,26 @@
 name: Buttery Brown Sugar Waffles
 
-description: Waffles stuffed with butter and brown sugar.
+description: Buttery Waffles brown sugar and cinnamon.
 
 ingredients:
     - amount: 2
       unit: Cup
       item: Flour
-    - amount: 2
-      unit: Tablespoon
+    - amount: 1/4
+      unit: Cup
       item: Brown Sugar
-    - amount: 2
-      unit: Teaspoon
+    - amount: 1
+      unit: Tablespoon
       item: Cinnamon
-    - amount: 4
-      unit: Teaspoon
+    - amount: 1
+      unit: Tablespoon
       item: Baking Powder
     - amount: 1
       unit: Teaspoon
       item: Salt
     - amount: 2
       item: Egg
-    - amount: 3/2
+    - amount: 5/2
       unit: Cup
       item: Milk
     - amount: 1
