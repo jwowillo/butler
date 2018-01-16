@@ -11,6 +11,7 @@ function recipeToString(recipe) {
 // listRecipes lists all the recipes that match the filter in the container.
 function listRecipes(container, filter) {
   set('filter', filter);
+  if (filter == null) filter = '';
   filter = filter.toLowerCase();
   for (const recipe of container.getElementsByTagName('li')) {
     const link = recipe.getElementsByTagName('a')[0].innerHTML;

@@ -2,22 +2,12 @@
 
 // getChecked returns checked recipes.
 function getChecked() {
-  let checked = get('checked');
-  if (!(checked instanceof Array)) checked = [];
-  for (const recipe of checked) {
-    for (const i in recipe.ingredients) {
-      recipe.ingredients[i].amount = new Fraction(
-        recipe.ingredients[i].amount.numerator,
-        recipe.ingredients[i].amount.denominator
-      );
-    }
-  }
-  return checked;
+  return getRecipes('checked');
 }
 
 // setChecked sets checked recipes.
 function setChecked(checked) {
-  set('checked', checked);
+  setRecipes('checked', checked);
 }
 
 // addCheckBoxes that put meals in the mealContainer to the left of recipes in
