@@ -36,5 +36,5 @@ endef
 # go is used to install Go commands referred to by the name of the command. The
 # commands are expected to be found in the cmd directory.
 define go
-	cd cmd/$(1) && go install
+	cd cmd/$(1) && go get && go install
 endef
