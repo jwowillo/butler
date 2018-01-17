@@ -1,40 +1,30 @@
 (function() {
 
-// getChecked returns checked recipes.
-function getChecked() {
-  return getRecipes('checked');
-}
-
-// setChecked sets checked recipes.
-function setChecked(checked) {
-  setRecipes('checked', checked);
-}
-
 // addCheckBoxes that put meals in the mealContainer to the left of recipes in
 // the recipeContainer.
 function addCheckBoxes(mealContainer, recipeContainer) {
   const checked = new Set();
-  for (const recipe of getChecked()) checked.add(recipe.name);
+  for (const recipe of getCheckedRecipes()) checked.add(recipe.name);
   for (const item of recipeContainer.getElementsByTagName('li')) {
     const link = item.firstChild;
     const input = checkBox(
       function() {
-        const checked = getChecked();
-        checked.push(recipes[link.innerHTML]);
-        setChecked(checked);
+        const checked = getCheckedRecipes();
+        checked.push(RECIPES[link.innerHTML]);
+        setCheckedRecipes(checked);
         makeMeal(mealContainer, recipeContainer, checked);
       },
       function() {
-        let checked = getChecked();
+        let checked = getCheckedRecipes();
         checked = checked.filter((recipe) => recipe.name != link.innerHTML);
-        setChecked(checked);
+        setCheckedRecipes(checked);
         makeMeal(mealContainer, recipeContainer, checked);
       }
     )
     if (checked.has(link.innerHTML)) input.checked = true;
     prepend(link, input);
   }
-  makeMeal(mealContainer, recipeContainer, getChecked());
+  makeMeal(mealContainer, recipeContainer, getCheckedRecipes());
 }
 
 // makeMeal adds the checked meals to the mealContainer and inserts it before

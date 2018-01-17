@@ -10,8 +10,8 @@ function set(key, value) {
   localStorage.setItem(window.location.href+key, JSON.stringify(value));
 }
 
-function getRecipes(key) {
-  const recipes = get(key);
+function getCheckedRecipes() {
+  const recipes = get('checked');
   if (!(recipes instanceof Array)) return [];
   for (const recipe of recipes) {
     for (const i in recipe.ingredients) {
@@ -24,6 +24,16 @@ function getRecipes(key) {
   return recipes;
 }
 
-function setRecipes(key, value) {
-  set(key, value);
+function setCheckedRecipes(value) {
+  set('checked', value);
+}
+
+function getFilter() {
+  const filter = get('filter');
+  if (filter == null) return '';
+  return filter;
+}
+
+function setFilter(value) {
+  set('filter', filter);
 }

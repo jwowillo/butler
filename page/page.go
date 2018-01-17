@@ -85,12 +85,12 @@ func tmpls(web string, rs []recipe.Recipe) ([]gen.Page, error) {
 	hp, err := gen.NewTemplate(
 		paths("base.html", "index.html"),
 		rts,
-		"index.html",
+		"/index.html",
 	)
 	if err != nil {
 		return nil, err
 	}
-	jsp, err := gen.NewTemplate(paths("recipes.js"), rts, "recipes.js")
+	jsp, err := gen.NewTemplate(paths("recipes.js"), rts, "/recipes.js")
 	if err != nil {
 		return nil, err
 	}

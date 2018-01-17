@@ -25,8 +25,7 @@ func main() {
 	if debug {
 		err = gen.WriteOnly(dir, ps)
 	} else {
-		ts := []gen.Transform{gen.Minify, gen.Gzip}
-		err = gen.Write(dir, ts, ps)
+		err = gen.Write(dir, gen.AllTransformations, ps)
 	}
 	if err != nil {
 		log.Fatal(err)

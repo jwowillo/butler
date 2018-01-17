@@ -1,4 +1,4 @@
-const recipes = {
+const RECIPES = {
   {{ range $i, $r := . }}
   '{{ $r.Name }}': {
     'path': '{{ $r.Path }}',
