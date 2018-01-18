@@ -15,16 +15,16 @@ ingredients:
       item: Chicken Broth
     - amount: 1
       item: Tomato
-    - amount: 1/2
+    - amount: 1
       unit: Cup
       item: Corn Kernel
-    - amount: 1/2
+    - amount: 1
       item: Spanish Onion
-    - amount: 1/2
+    - amount: 1
       item: Poblano Pepper
-    - amount: 1/2
+    - amount: 1
       item: Jalapeno
-    - amount: 1/2
+    - amount: 1
       item: Red Bell Pepper
 
 steps:
