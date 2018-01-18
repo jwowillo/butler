@@ -1,30 +1,17 @@
 (function() {
 
-// addCheckBoxes that put meals in the mealContainer to the left of recipes in
+function recipes(checked) {
+  return checked.map(item => RECIPES[item]);
+}
+
+// addCheckboxes that put meals in the mealContainer to the left of recipes in
 // the recipeContainer.
-function addCheckBoxes(mealContainer, recipeContainer) {
-  const checked = new Set();
-  for (const recipe of getCheckedRecipes()) checked.add(recipe.name);
-  for (const item of recipeContainer.getElementsByTagName('li')) {
-    const link = item.firstChild;
-    const input = checkBox(
-      function() {
-        const checked = getCheckedRecipes();
-        checked.push(RECIPES[link.innerHTML]);
-        setCheckedRecipes(checked);
-        makeMeal(mealContainer, recipeContainer, checked);
-      },
-      function() {
-        let checked = getCheckedRecipes();
-        checked = checked.filter((recipe) => recipe.name != link.innerHTML);
-        setCheckedRecipes(checked);
-        makeMeal(mealContainer, recipeContainer, checked);
-      }
-    )
-    if (checked.has(link.innerHTML)) input.checked = true;
-    prepend(link, input);
-  }
-  makeMeal(mealContainer, recipeContainer, getCheckedRecipes());
+function addCheckboxes(mealContainer, recipeContainer) {
+  checkboxList(
+    recipeContainer,
+    checked => makeMeal(mealContainer, recipeContainer, recipes(checked)),
+    checked => makeMeal(mealContainer, recipeContainer, recipes(checked))
+  )
 }
 
 // makeMeal adds the checked meals to the mealContainer and inserts it before
@@ -37,7 +24,11 @@ function makeMeal(mealContainer, recipeContainer, checked) {
   }
   mealContainer.appendChild(h3('Meal:'));
   mealContainer.appendChild(h2('Ingredients:'));
-  mealContainer.appendChild(ul(ingredients(checked)));
+  const ingredientsUl = ul(ingredients(checked));
+  ingredientsUl.id = 'ingredients';
+  for (const item of checked) ingredientsUl.id += item.name;
+  strikethroughList(ingredientsUl);
+  mealContainer.appendChild(ingredientsUl);
   mealContainer.appendChild(h2('Steps:'));
   mealContainer.appendChild(ul(recipeLinks(checked)));
   prepend(recipeContainer, mealContainer);
@@ -81,10 +72,10 @@ function ingredients(checked) {
   return is;
 }
 
-const meal = document.createElement('div');
-meal.id = 'box';
-const results = document.getElementById('results');
+const mealContainer = document.createElement('div');
+mealContainer.id = 'box';
+const recipeContainer = document.getElementById('results');
 
-addCheckBoxes(meal, results);
+addCheckboxes(mealContainer, recipeContainer);
 
 })();

@@ -9,31 +9,3 @@ function get(key) {
 function set(key, value) {
   localStorage.setItem(window.location.href+key, JSON.stringify(value));
 }
-
-function getCheckedRecipes() {
-  const recipes = get('checked');
-  if (!(recipes instanceof Array)) return [];
-  for (const recipe of recipes) {
-    for (const i in recipe.ingredients) {
-      recipe.ingredients[i].amount = new Fraction(
-        recipe.ingredients[i].amount.numerator,
-        recipe.ingredients[i].amount.denominator
-      );
-    }
-  }
-  return recipes;
-}
-
-function setCheckedRecipes(value) {
-  set('checked', value);
-}
-
-function getFilter() {
-  const filter = get('filter');
-  if (filter == null) return '';
-  return filter;
-}
-
-function setFilter(value) {
-  set('filter', filter);
-}

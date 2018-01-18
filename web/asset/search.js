@@ -1,5 +1,13 @@
 (function() {
 
+function getFilter() {
+  return get('filter') || '';
+}
+
+function setFilter(filter) {
+  set('filter', filter);
+}
+
 // recipeToString concatenates the recipe into a long string.
 function recipeToString(recipe) {
   let out = recipe.name + recipe.description;
@@ -10,7 +18,7 @@ function recipeToString(recipe) {
 
 // listRecipes lists all the recipes that match the filter in the container.
 function listRecipes(container, filter) {
-  set(filter);
+  setFilter(filter);
   filter = filter.toLowerCase();
   for (const recipe of container.getElementsByTagName('li')) {
     const link = recipe.getElementsByTagName('a')[0].innerHTML;

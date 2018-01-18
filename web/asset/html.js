@@ -6,8 +6,13 @@ function ul(list) {
   const u = document.createElement('ul');
   for (const item of list) {
     const li = document.createElement('li');
-    if (item instanceof HTMLElement) li.appendChild(item);
-    else li.innerHTML = item;
+    if (item instanceof HTMLElement) {
+      li.appendChild(item);
+    } else {
+      const span = document.createElement('span');
+      span.innerHTML = item;
+      li.appendChild(span);
+    }
     u.appendChild(li);
   }
   return u;
@@ -45,14 +50,47 @@ function prepend(container, item) {
   container.parentNode.insertBefore(item, container);
 }
 
-// checkBox which performs the checkedAction when checked and the
+function checkboxList(container, checked, unchecked) {
+  const getChecked = () => get(container.id) || [];
+  const setChecked = items => set(container.id, items);
+  for (const item of container.getElementsByTagName('li')) {
+    const first = item.firstChild;
+    const input = checkbox(
+      function() {
+        let items = getChecked();
+        items.push(first.innerHTML);
+        setChecked(items);
+        checked(items);
+      },
+      function() {
+        let items = getChecked();
+        items = items.filter((item) => item != first.innerHTML);
+        setChecked(items);
+        unchecked(items);
+      }
+    );
+    prepend(first, input);
+  }
+  const items = new Set();
+  for (const item of getChecked()) items.add(item);
+  for (const item of container.getElementsByTagName('li')) {
+    const input = item.children[0];
+    const node = item.children[1];
+    if (items.has(node.innerHTML)) {
+      input.checked = true
+    };
+  }
+  checked(Array.from(items));
+}
+
+// checkbox which performs the checkedAction when checked and the
 // uncheckedAction when unchecked.
-function checkBox(checkedAction, uncheckedAction) {
+function checkbox(checked, unchecked) {
   const input = document.createElement('input');
   input.type = 'checkbox';
   input.addEventListener('change', function() {
-    if (this.checked) checkedAction();
-    else uncheckedAction();
+    if (this.checked) checked();
+    else unchecked();
   })
   return input;
 }

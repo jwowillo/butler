@@ -10,22 +10,22 @@
   <h3>{{ .Description }}</h3>
 
   {{ if ne 0 (len .Ingredients) }}
-  <div>
+  <div id="ingredients">
     <h2>Ingredients:</h2>
     <ul>
       {{ range $item := .Ingredients }}
-      <li>{{ $item }}</li>
+      <li><span>{{ $item }}</span></li>
       {{ end }}
     </ul>
   </div>
   {{ end }}
 
   {{ if ne 0 (len .Steps) }}
-  <div>
+  <div id="steps">
     <h2>Steps:</h2>
     <ol>
       {{ range $item := .Steps }}
-      <li>{{ $item }}</li>
+      <li><span>{{ $item }}</span></li>
       {{ end }}
     </ol>
   </div>
@@ -44,4 +44,9 @@
 
   <p><a href="/">Back</a></p>
 </div>
+
+<script src="/cache.js" defer></script>
+<script src="/html.js" defer></script>
+<script src="/strikethrough.js" defer></script>
+<script src="/recipe.js" defer></script>
 {{ end }}
