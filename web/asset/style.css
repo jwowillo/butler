@@ -66,6 +66,7 @@ img {
 
 #box {
   padding-left: 25px;
+  padding-right: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
   box-sizing: border-box;
