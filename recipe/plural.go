@@ -171,4 +171,5 @@ var plurals = map[string]string{
 	"baking powder":           "baking powder",
 	"milk":                    "milk",
 	"stick":                   "sticks",
+	"new york strip":          "new york strip",
 }

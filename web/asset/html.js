@@ -83,6 +83,14 @@ function checkboxList(container, checked, unchecked) {
   checked(Array.from(items));
 }
 
+function button(text, cmd) {
+  const b = document.createElement('button');
+  b.innerHTML = text;
+  b.addEventListener('click', cmd);
+  b.className = text.toLowerCase();
+  return b;
+}
+
 // checkbox which performs the checkedAction when checked and the
 // uncheckedAction when unchecked.
 function checkbox(checked, unchecked) {

@@ -10,7 +10,7 @@ ingredients:
       unit: Tablespoon
       item: Butter
     - item: Salt
-    - amount: 3/2
+    - amount: 1
       unit: Cup
       item: Chicken Broth
     - amount: 1
@@ -28,11 +28,9 @@ ingredients:
       item: Red Bell Pepper
 
 steps:
-    - Cut the tomatoes in half, scoop the cores into a bowl, and crush them.
-    - Dice the onion, tomatoes, and peppers.
-    - Melt the butter in a pan on medium heat.
-    - Add the rice and all the diced vegetables with salt and cook until the
-      vegetables soften.
+    - Cut the tomato in half, scoop the core into a bowl, and crush it.
+    - Dice the onion, tomato, and peppers.
+    - Stir the butter and rice in a pan on medium heat until the butter melts.
+    - Add the diced vegetables with salt and cook until the vegetables soften.
     - Add the broth and crushed tomatoes, bring to a boil, reduce to a simmer,
       and cover until all the broth is gone.
-    - Taste for salt.

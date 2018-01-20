@@ -1,9 +1,9 @@
-name: Ribeye
+name: New York Strip
 
-description: Seared ribeye.
+description: Sous vide cooked and seared New York strip.
 
 ingredients:
-    - item: Ribeye
+    - item: New York Strip
     - amount: 4
       unit: Tablespoon
       item: Butter
@@ -12,11 +12,14 @@ ingredients:
     - item: Neutral Oil
 
 steps:
-    - Sous vide the ribeye at 130 degrees until cooked through.
+    - Sous vide the ribeye at 126 degrees until cooked through.
     - Pat the ribeye dry and liberally season with salt.
     - Heat a cast iron pan as hot as possible.
     - Oil the pan and sear the ribeye on one side plus all the edges until a
       good crust forms.
     - Turn the heat off, flip the ribeye to the unseared side, add the butter to
       the pan, and quickly baste the top until the bottom also has a crust.
-    - Let rest for 5 minutes.
+    - Let rest for 10 minutes.
+
+notes:
+    - Works best with a very thick cut.

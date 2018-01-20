@@ -14,6 +14,14 @@ function strikethroughList(container) {
     container,
     checked => strike(container, checked),
     checked => strike(container, checked)
-  )
+  );
+  container.appendChild(button('Clear', function() {
+    set(container.id, []);
+    strike(container, []);
+    for (const item of container.getElementsByTagName('li')) {
+      const input = item.children[0];
+      input.checked = false;
+    }
+  }));
 }
 
