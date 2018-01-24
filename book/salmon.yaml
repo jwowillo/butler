@@ -1,0 +1,18 @@
+name: Salmon
+
+description: Salmon with crispy skin seasoned with salt and pepper.
+
+ingredients:
+    - item: Salmon Filet
+    - item: Salt
+    - item: Pepper
+    - item: Butter
+
+steps:
+    - Make quarter-inch deep slices in the skin side of the salmon.
+    - Season the skin liberally with salt and the rest of the salmon lightly.
+    - Melt butter in the pan on medium heat.
+    - Place the salmon skin down in the pan.
+    - Once the skin is crisped, turn the heat down to medium-low and flip the
+      salmon.
+    - Cook until finished.

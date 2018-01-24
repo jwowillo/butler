@@ -1,0 +1,32 @@
+name: Fruit Salad
+
+description: Sweet fruit salad with many different textures.
+
+ingredients:
+    - amount: 2
+      unit: Cup
+      item: Granola
+    - amount: 1/4
+      unit: Cup
+      item: Sugar
+    - amount: 1
+      item: Apple
+    - amount: 2
+      item: Banana
+    - amount: 1
+      item: Lemon
+    - amount: 1
+      unit: Cup
+      item: Blueberry
+    - amount: 2
+      unit: Cup
+      item: Strawberry
+
+steps:
+    - Quarter the strawberries and stir them with the sugar.
+    - Thinly slice the apple and slice the banana into half inch rings.
+    - Combine all fruits, except the lemon, and the granola with the
+      strawberries.
+    - Zest the enitre lemon over the fruit.
+    - Cut the lemon in half and squeeze all the juice over the fruit.
+    - Stir the entire mixture.

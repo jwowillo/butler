@@ -172,4 +172,12 @@ var plurals = map[string]string{
 	"milk":                    "milk",
 	"stick":                   "sticks",
 	"new york strip":          "new york strip",
+	"granola":                 "granola",
+	"sugar":                   "sugar",
+	"blueberry":               "blueberries",
+	"strawberry":              "strawberries",
+	"banana":                  "bananas",
+	"salmon":                  "salmon",
+	"apple":                   "apples",
+	"salmon filet":            "salmon filets",
 }
