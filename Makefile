@@ -5,7 +5,7 @@
 .PHONY: doc
 
 # all builds the site generator, the server, and docs.
-all: butler_gen butler_server doc
+all: butler_gen doc
 
 # butler_gen builds the generator which creates the butler static files.
 butler_gen:
