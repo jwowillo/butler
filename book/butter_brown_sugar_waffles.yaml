@@ -6,14 +6,14 @@ ingredients:
     - amount: 2
       unit: Cup
       item: Flour
-    - amount: 1/4
+    - amount: 1/2
       unit: Cup
       item: Brown Sugar
     - amount: 1
       unit: Tablespoon
       item: Cinnamon
     - amount: 1
-      unit: Tablespoon
+      unit: Teaspoon
       item: Baking Powder
     - amount: 1
       unit: Teaspoon

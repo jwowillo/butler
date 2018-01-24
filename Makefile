@@ -7,12 +7,6 @@
 # all builds the site generator, the server, and docs.
 all: butler_gen butler_server doc
 
-# butler_server builds the server which serves butler.
-butler_server:
-	@echo 'making butler_server'
-	$(call go,butler_server)
-	@echo
-
 # butler_gen builds the generator which creates the butler static files.
 butler_gen:
 	@echo 'making butler_gen'
