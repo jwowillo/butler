@@ -21,13 +21,11 @@ go get github.com/jwowillo/gen/cmd/gen_server
 echo 'generating'
 ./run_gen
 echo 'checking if server is running'
-ID=$(pgrep gen_server)
-if [ -z "$ID" ]; then
-  echo 'starting server'
-  nohup ./run_server > /dev/null 2> /dev/null < /dev/null &
-else
-  echo 'server already running'
-fi
+pgrep gen_server | xargs kill 2> /dev/null || true
+echo
+echo 'starting server'
+echo
+nohup ./run_server >/dev/null 2> /dev/null < /dev/null &
 '''
     cmd.ssh(host, CMD.format(directory))
 

@@ -5,7 +5,7 @@ import subprocess
 
 def ssh(host, cmd):
     """ssh into host and run cmd."""
-    run('ssh {} << EOF\n{}\nEOF\n'.format(host, cmd))
+    run('ssh {} << EOF\nset -x\nset -e\n{}\nEOF\n'.format(host, cmd))
 
 
 def run(cmd):

@@ -15,7 +15,11 @@ def gen(web, recipes, directory, debug):
 
     Output will not be optimized if debug is True.
     """
-    cmd.run('butler_gen --recipes {} --web {} --directory {} --debug {}'.format(
+    if debug:
+        debug = 'true'
+    else:
+        debug = 'false'
+    cmd.run('butler_gen --recipes {} --web {} --directory {} --debug={}'.format(
         recipes, web, directory, debug))
 
 
