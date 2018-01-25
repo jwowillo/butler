@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+"""run_gen wraps butler_gen with default values."""
+
+import argparse
+
+import cmd
+
+
+def gen(web, recipes, directory, debug):
+    """
+    gen butler with web files in web and recipes in recipes.
+
+    Write output to directory.
+
+    Output will not be optimized if debug is True.
+    """
+    cmd.run('butler_gen --recipes {} --web {} --directory {} --debug {}'.format(
+        recipes, web, directory, debug))
+
+
+if  __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--web', help='directory with web files', default='web')
+    parser.add_argument('--recipes', help='directory with recipes',
+                        default='book')
+    parser.add_argument('--directory', help='directory to write to',
+                        default='build')
+    parser.add_argument('--debug', help='write files without optimizations',
+                        action='store_true')
+    args = parser.parse_args()
+    gen(args.web, args.recipes, args.directory, args.debug)

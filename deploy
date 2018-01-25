@@ -1,48 +1,42 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-host= # Host the server is being deployed to.
-wd=   # Working directory to run the server from on the host.
+"""deploy butler to a host."""
 
-while [ ! $# -eq 0 ]
-do
-  case "$1" in
-    --host )
-      host=$2
-      ;;
-    --working-directory )
-      wd=$2
-      ;;
-  esac
-  shift
-done
+import argparse
 
-if [ -z "$host" ]
-then
-  echo 'must pass host the server is being deployed to'
-  exit 1
-fi
-if [ -z "$wd" ]
-then
-  echo 'must pass working directory to run the server from on the host'
-  exit 1
-fi
+import cmd
 
-ssh $host << EOF
-cd $wd
+
+def deploy(host, directory):
+    """deploy butler to the host and make the server run in directory."""
+    CMD = '''
+cd {}
 rm -rf butler
 echo 'cloning'
 git clone https://github.com/jwowillo/butler.git > /dev/null 2> /dev/null
-echo
 cd butler
 echo 'building'
-echo
 make butler_gen
 go get github.com/jwowillo/gen/cmd/gen_server
-echo
-echo 'killing server if running'
-pgrep butler_server | xargs kill 2> /dev/null || true
-echo
-echo 'starting server'
-echo
-nohup ./run > /dev/null 2> /dev/null < /dev/null &
-EOF
+echo 'generating'
+./run_gen
+echo 'checking if server is running'
+ID=$(pgrep gen_server)
+if [ -z "$ID" ]; then
+  echo 'starting server'
+  nohup ./run_server > /dev/null 2> /dev/null < /dev/null &
+else
+  echo 'server already running'
+fi
+'''
+    cmd.ssh(host, CMD.format(directory))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('host', help='host the server is being deployed to')
+    parser.add_argument('directory',
+                        help='directory to run the server from on the host')
+    args = parser.parse_args()
+    deploy(args.host, args.directory)
+

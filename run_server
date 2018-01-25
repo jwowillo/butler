@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+"""run_server wraps gen_server with default values."""
+
+import argparse
+
+import cmd
+
+
+def server(port, directory):
+    """server listening on port serving directory."""
+    cmd.run('gen_server --port {} --directory {}'.format(port, directory))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', help='port to listen on', default=':3000')
+    parser.add_argument('--directory', help='directory to serve',
+                        default='build')
+    args = parser.parse_args()
+    server(args.port, args.directory)
