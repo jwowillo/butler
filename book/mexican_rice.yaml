@@ -15,7 +15,7 @@ ingredients:
       item: Chicken Broth
     - amount: 1
       item: Tomato
-    - amount: 1
+    - amount: 1/2
       unit: Cup
       item: Corn Kernel
     - amount: 1
@@ -34,3 +34,7 @@ steps:
     - Add the diced vegetables with salt and cook until the vegetables soften.
     - Add the broth and crushed tomatoes, bring to a boil, reduce to a simmer,
       and cover until all the broth is gone.
+
+notes:
+    - Avoid stirring while broth is added and reducing to prevent the rice from
+      becoming too starchy.

@@ -20,7 +20,7 @@ ingredients:
       item: Salt
     - amount: 2
       item: Egg
-    - amount: 5/2
+    - amount: 2
       unit: Cup
       item: Milk
     - amount: 1
@@ -28,7 +28,9 @@ ingredients:
       item: Butter
 
 steps:
-    - Brown the butter.
-    - Mix all the dry and wet ingredients in separate bowls.
-    - Combine the dry and wet ingredients.
-    - Pour in waffle iron until cooked.
+    - Melt the butter in a pan.
+    - Combine all the dry ingredients while the butter.
+    - Add the brown sugar and milk and leave until warm.
+    - Combine the eggs into the wet mixture.
+    - Whisk the wet ingredients into the dry ingredients.
+    - Pour in a waffle iron and leave until cooked.
