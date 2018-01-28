@@ -3,31 +3,33 @@
 """deploy butler to a host."""
 
 import argparse
+import os.path
 
 import cmd
 
 
 def deploy(host, directory):
     """deploy butler to the host and make the server run in directory."""
-    CMD = '''
-cd {}
-rm -rf butler
-echo 'cloning'
-git clone https://github.com/jwowillo/butler.git > /dev/null 2> /dev/null
-cd butler
-echo 'building'
-make butler_gen
-go get github.com/jwowillo/gen/cmd/gen_server
-echo 'generating'
-./run_gen
-echo 'checking if server is running'
-pgrep gen_server | xargs kill 2> /dev/null || true
-echo
-echo 'starting server'
-echo
-nohup ./run_server >/dev/null 2> /dev/null < /dev/null &
-'''
-    cmd.ssh(host, CMD.format(directory))
+    butler_directory = os.path.join(directory, 'butler')
+    print('cloning')
+    cloned = cmd.clone(host, directory)
+    if cloned:
+        print('clone was performed')
+    else:
+        print('pull was performed')
+    print('building')
+    cmd.build(host, butler_directory)
+    print('generating')
+    cmd.gen(host, butler_directory)
+    print('checking if server is running')
+    if cloned:
+        print('restarting server since clone performed')
+        cmd.restart_server(host, butler_directory)
+    elif cmd.is_server_running(host):
+        print('server is already running')
+    else:
+        print('starting server')
+        cmd.start_server(host, butler_directory)
 
 
 if __name__ == '__main__':
@@ -37,4 +39,3 @@ if __name__ == '__main__':
                         help='directory to run the server from on the host')
     args = parser.parse_args()
     deploy(args.host, args.directory)
-

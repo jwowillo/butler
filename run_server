@@ -9,7 +9,9 @@ import cmd
 
 def server(port, directory):
     """server listening on port serving directory."""
-    cmd.run('gen_server --port {} --directory {}'.format(port, directory))
+    CMD = 'gen_server --port {} --directory {}'.format(port, directory)
+    for line in cmd.run(CMD):
+        print(line)
 
 
 if __name__ == '__main__':

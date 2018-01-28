@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+
+"""update_dependencies and restart server on a host."""
+
+import argparse
+
+import cmd
+
+
+def update_dependencies(host, directory):
+    """update_dependencies on host and restart server in directory."""
+    cmd.install_dependencies(host)
+    cmd.restart_server(host, directory)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('host', help='host to update dependencies on')
+    parser.add_argument('directory',
+                        help='directory to restart the server from on the host')
+    args = parser.parse_args()
+    update_dependencies(args.host, args.directory)

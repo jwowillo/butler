@@ -19,8 +19,10 @@ def gen(web, recipes, directory, debug):
         debug = 'true'
     else:
         debug = 'false'
-    cmd.run('butler_gen --recipes {} --web {} --directory {} --debug={}'.format(
-        recipes, web, directory, debug))
+    CMD = 'butler_gen --recipes {} --web {} --directory {} --debug={}'.format(
+            recipes, web, directory, debug)
+    for line in cmd.run(CMD):
+        print(line)
 
 
 if  __name__ == '__main__':
