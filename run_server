@@ -2,22 +2,23 @@
 
 """run_server wraps gen_server with default values."""
 
-import argparse
-
 import cmd
 
 
 def server(port, directory):
-    """server listening on port serving directory."""
-    CMD = 'gen_server --port {} --directory {}'.format(port, directory)
-    for line in cmd.run(CMD):
+    """
+    server starts server listening on port in directory.
+    """
+    cmd = 'gen_server --port {} --directory {}'.format(port, directory)
+    for line in cmd.run(cmd):
         print(line)
 
 
 if __name__ == '__main__':
+    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', help='port to listen on', default=':3000')
-    parser.add_argument('--directory', help='directory to serve',
-                        default='build')
+    parser.add_argument('--directory', help='directory to start server in',
+            default='build')
     args = parser.parse_args()
     server(args.port, args.directory)

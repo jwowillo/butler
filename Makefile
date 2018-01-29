@@ -4,7 +4,7 @@
 # line at the end.
 .PHONY: doc
 
-# all builds the site generator, the server, and docs.
+# all builds the site generator and docs.
 all: butler_gen doc
 
 # butler_gen builds the generator which creates the butler static files.

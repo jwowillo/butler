@@ -2,37 +2,36 @@
 
 """run_gen wraps butler_gen with default values."""
 
-import argparse
-
 import cmd
 
 
 def gen(web, recipes, directory, debug):
     """
-    gen butler with web files in web and recipes in recipes.
+    gen with web files in web and recipes in recipes.
 
-    Write output to directory.
+    Generate to directory.
 
-    Output will not be optimized if debug is True.
+    Will not generate with optimization if debug is True.
     """
     if debug:
         debug = 'true'
     else:
         debug = 'false'
-    CMD = 'butler_gen --recipes {} --web {} --directory {} --debug={}'.format(
+    cmd = 'butler_gen --recipes {} --web {} --directory {} --debug={}'.format(
             recipes, web, directory, debug)
-    for line in cmd.run(CMD):
+    for line in cmd.run(cmd):
         print(line)
 
 
 if  __name__ == '__main__':
+    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--web', help='directory with web files', default='web')
     parser.add_argument('--recipes', help='directory with recipes',
                         default='book')
-    parser.add_argument('--directory', help='directory to write to',
+    parser.add_argument('--directory', help='directory to generate to',
                         default='build')
-    parser.add_argument('--debug', help='write files without optimizations',
+    parser.add_argument('--debug', help='generate without optimization',
                         action='store_true')
     args = parser.parse_args()
     gen(args.web, args.recipes, args.directory, args.debug)

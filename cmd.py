@@ -1,70 +1,66 @@
-"""cmd has helper functions for running shell commands."""
+"""cmd has helper functions for running commands."""
 
 import os.path
 import subprocess
 
+import paramiko
+
 
 def clone(host, directory):
-    cmd = ''
+    """
+    clone butler onto host in directory.
+
+    Will pull if the directory already exists.
+    """
     if __dir_exists(host, os.path.join(directory, 'butler')):
-        cmd = 'cd {}/butler; git pull'.format(directory)
-        for _ in ssh(host, cmd): continue
+        __finish(ssh(host, 'cd {}/butler; git pull'.format(directory)))
         return False
     else:
-        cmd = 'cd {}; git clone https://github.com/jwowillo/butler.git'.format(
-                directory)
-        for _ in ssh(host, cmd): continue
+        tmpl = 'cd {}; git clone https://github.com/jwowillo/butler.git'
+        __finish(ssh(host, tmpl.format(directory)))
         return True
-
-
-def __dir_exists(host, directory):
-    try:
-        CMD = 'test -d {}'.format(directory)
-        for _ in ssh(host, CMD): continue
-        return True
-    except subprocess.CalledProcessError:
-        return False
 
 
 def build(host, directory):
-    CMD = 'cd {}; make butler_gen'.format(directory)
-    for _ in ssh(host, CMD): continue
+    """build butler that is in directory on host."""
+    __finish(ssh(host, 'cd {}; make butler_gen'.format(directory)))
 
 
 def gen(host, directory):
-    CMD = 'cd {}; ./run_gen'.format(directory)
-    for _ in ssh(host, CMD): continue
+    """gen in butler directory on host."""
+    __finish(ssh(host, 'cd {}; ./run_gen'.format(directory)))
 
 
 def install_dependencies(host):
-    CMD = 'go get -u github.com/jwowillo/gen/cmd/gen_server'
-    for _ in ssh(host, CMD): continue
+    """install_dependencies for butler on host."""
+    cmd = 'go get -u github.com/jwowillo/gen/cmd/gen_server'
+    __finish(ssh(host, cmd))
 
 
 def restart_server(host, directory):
+    """restart_server on host in butler directory."""
     stop_server(host)
     start_server(host, directory)
 
 
 def start_server(host, directory):
+    """start_server on host in butler directory."""
     if is_server_running(host): return
-    CMD = '''
-cd {}
-nohup ./run_server > /dev/null 2> /dev/null < /dev/null &
-'''.format(directory)
-    for _ in ssh(host, CMD): continue
+    tmpl = 'cd {}; nohup ./run_server > /dev/null 2> /dev/null < /dev/null &'
+    __finish(ssh(host, tmpl.format(directory)))
 
 
 def stop_server(host):
+    """stop_server on host."""
     try:
         pid = __server_pid(host)
     except ValueError:
         return
-    CMD = 'kill {}'.format(pid)
-    for _ in ssh(host, CMD): continue
+    __finish(ssh(host, 'kill {}'.format(pid)))
 
 
 def is_server_running(host):
+    """is_server_running returns True if the server is running on host."""
     try:
         __server_pid(host)
         return True
@@ -72,16 +68,28 @@ def is_server_running(host):
         return False
 
 
-def __server_pid(host):
+def __dir_exists(host, directory):
+    """__dir_exists returns True if the directory exists on the host."""
     try:
-        return int(list(ssh(host, 'pgrep gen_server'))[-1])
-    except subprocess.CalledProcessError:
-        raise ValueError('server not running on {}'.format(host))
+        __finish(ssh(host, 'test -d {}'.format(directory)))
+        return True
+    except ValueError:
+        return False
 
 
 def ssh(host, cmd):
     """ssh into host and run cmd."""
-    return run('ssh {} << EOF\nset -e\n{}\nEOF\n'.format(host, cmd))
+    global __CLIENT
+    if __CLIENT is None:
+        name, host = host.split('@')
+        __CLIENT = paramiko.SSHClient()
+        __CLIENT.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        __CLIENT.connect(host, username=name)
+    stdout = __CLIENT.exec_command('set -e\n{}'.format(cmd))[1]
+    for line in stdout:
+        yield line
+    if stdout.channel.recv_exit_status() != 0:
+        raise ValueError('failed to execute command')
 
 
 def run(cmd):
@@ -96,3 +104,26 @@ def run(cmd):
     pipe.stdout.close()
     code = pipe.wait()
     if code: raise subprocess.CalledProcessError(code, cmd)
+
+
+def __finish(generator):
+    """__finish consumes the generator."""
+    for _ in generator: continue
+
+
+def __server_pid(host):
+    """
+    server_pid returns the PID of the server on the host.
+
+    Raises a ValueError if the server isn't running.
+    """
+    try:
+        return int(list(ssh(host, 'pgrep gen_server'))[-1])
+    except ValueError:
+        raise ValueError('server not running on {}'.format(host))
+
+
+__CLIENT = None
+"""__CLIENT is a global ssh client that can be reused.a"""
+
+

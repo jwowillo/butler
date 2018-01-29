@@ -2,21 +2,21 @@
 
 """update_dependencies and restart server on a host."""
 
-import argparse
-
 import cmd
 
 
 def update_dependencies(host, directory):
-    """update_dependencies on host and restart server in directory."""
+    """update_dependencies on host and restart server in  a butler directory."""
+    print('installing dependencies')
     cmd.install_dependencies(host)
+    print('restarting server')
     cmd.restart_server(host, directory)
 
 
 if __name__ == '__main__':
+    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('host', help='host to update dependencies on')
-    parser.add_argument('directory',
-                        help='directory to restart the server from on the host')
+    parser.add_argument('directory', help='butler directory')
     args = parser.parse_args()
     update_dependencies(args.host, args.directory)
