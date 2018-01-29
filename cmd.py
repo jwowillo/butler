@@ -3,8 +3,6 @@
 import os.path
 import subprocess
 
-import paramiko
-
 
 def clone(host, directory):
     """
@@ -28,7 +26,8 @@ def build(host, directory):
 
 def gen(host, directory):
     """gen in butler directory on host."""
-    __finish(ssh(host, 'cd {}; ./run_gen'.format(directory)))
+    for line in ssh(host, 'cd {}; ./run_gen'.format(directory)):
+        print(line)
 
 
 def install_dependencies(host):
@@ -78,7 +77,12 @@ def __dir_exists(host, directory):
 
 
 def ssh(host, cmd):
-    """ssh into host and run cmd."""
+    """
+    ssh into host and run cmd.
+
+    paramiko imported here so that hosts don't need it installed.
+    """
+    import paramiko
     global __CLIENT
     if __CLIENT is None:
         name, host = host.split('@')
