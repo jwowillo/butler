@@ -13,13 +13,12 @@ def gen(web, recipes, directory, debug):
 
     Will not generate with optimization if debug is True.
     """
+    tmpl = 'butler_gen --recipes {} --web {} --directory {} --debug={}'
     if debug:
         debug = 'true'
     else:
         debug = 'false'
-    cmd = 'butler_gen --recipes {} --web {} --directory {} --debug={}'.format(
-            recipes, web, directory, debug)
-    for line in cmd.run(cmd):
+    for line in cmd.run(tmpl.format(recipes, web, directory, debug)):
         print(line)
 
 
