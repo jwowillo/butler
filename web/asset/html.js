@@ -50,6 +50,11 @@ function prepend(container, item) {
   container.parentNode.insertBefore(item, container);
 }
 
+// checkboxList creates a checkboxList over the list elements in the container
+// that does checked when an item is checked and unchecked when an item is
+// unchecked.
+//
+// checked and unchecked are passed the items that are checked.
 function checkboxList(container, checked, unchecked) {
   const getChecked = () => get(container.id) || [];
   const setChecked = items => set(container.id, items);
@@ -83,6 +88,7 @@ function checkboxList(container, checked, unchecked) {
   checked(Array.from(items));
 }
 
+// button with text that does cmd when clicked.
 function button(text, cmd) {
   const b = document.createElement('button');
   b.innerHTML = text;

@@ -1,9 +1,11 @@
 (function() {
 
+// getFilter returns the filter.
 function getFilter() {
   return get('filter') || '';
 }
 
+// setFilter to filter.
 function setFilter(filter) {
   set('filter', filter);
 }

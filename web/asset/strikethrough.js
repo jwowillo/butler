@@ -1,3 +1,4 @@
+// strike through the checked items in container.
 function strike(container, checked) {
   const set = new Set(checked);
   for (const item of container.getElementsByTagName('span')) {
@@ -9,6 +10,8 @@ function strike(container, checked) {
   }
 }
 
+// strikethroughList puts check-boxes next to all container list elements that
+// strike through the list element when checked.
 function strikethroughList(container) {
   checkboxList(
     container,
