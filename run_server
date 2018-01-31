@@ -9,6 +9,7 @@ def server(port, directory):
     """
     server starts server listening on port in directory.
     """
+    tmpl = 'gen_server --port {} --directory {}'
     for line in cmd.run(tmpl.format(port, directory)):
         print(line)
 
