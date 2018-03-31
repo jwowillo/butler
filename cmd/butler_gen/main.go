@@ -5,6 +5,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
 	"github.com/jwowillo/butler/page"
 	"github.com/jwowillo/butler/recipe"
@@ -22,13 +23,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	var errs []error
 	if debug {
-		err = gen.WriteOnly(dir, ps)
+		errs = gen.Write(dir, ps)
 	} else {
-		err = gen.Write(dir, gen.AllTransformations, ps)
+		errs = gen.WriteWithDefaults(dir, ps)
 	}
-	if err != nil {
-		log.Fatal(err)
+	if errs != nil {
+		log.SetOutput(os.Stderr)
+		for _, err := range errs {
+			log.Println(err)
+		}
+		os.Exit(1)
 	}
 }
 
